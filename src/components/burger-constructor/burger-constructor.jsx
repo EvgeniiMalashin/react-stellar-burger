@@ -62,7 +62,7 @@ function BurgerConstructor({ingredient}) {
             <p className="text text_type_digits-medium">610</p>
             <CurrencyIcon />
           </div>
-          <Button size="large" onClick={openModal}>
+          <Button htmlType="button" size="large" onClick={openModal}>
             Оформить заказ
           </Button>
         </div>

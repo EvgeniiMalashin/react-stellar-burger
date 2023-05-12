@@ -5,7 +5,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import {ingredientPropType} from "../../utils/prop-types";
 import PropTypes from "prop-types";
 
-function BurgerComponents({ingredients, openModal}, ref) {
+const BurgerComponents = React.forwardRef(({ingredients, openModal}, ref) => {
 
   return (
     <>
@@ -22,11 +22,12 @@ function BurgerComponents({ingredients, openModal}, ref) {
       </div>
     </>
   );
-}
+})
 
 BurgerComponents.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
   openModal: PropTypes.func.isRequired
 }
 
-export default React.forwardRef(BurgerComponents);
+export default BurgerComponents;
+

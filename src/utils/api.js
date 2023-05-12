@@ -1,6 +1,6 @@
 const API = "https://norma.nomoreparties.space/api";
 
-function serverResponse(res) {
+function checkResponse(res) {
   if (res.ok) {
     return res.json();
   }
@@ -9,5 +9,5 @@ function serverResponse(res) {
 
 export function getIngredients() {
   return fetch(`${API}/ingredients`)
-  .then(res => serverResponse(res))
+  .then(res => checkResponse(res))
 }
