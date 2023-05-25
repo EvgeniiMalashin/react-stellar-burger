@@ -1,45 +1,42 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientsStyle from "./burger-ingredients.module.css";
-import BurgerComponents from "../burger-components/burger-components";
+import IngredientBurger from "../ingredient-burger/ingredient-burger";
 import Modal from "../modal/modal";
-import {ingredientPropType} from "../../utils/prop-types"
-import PropTypes from "prop-types";
+import { IngredientsContext } from "../../services/ingredients-context";
+import { ConstructorContext } from "../../services/constructor-context";
 
-function BurgerIngredients({ingredient}) {
+function BurgerIngredients() {
+    const {ingredientsList} = React.useContext(IngredientsContext);
     const [current, setCurrent] = React.useState("buns");
     const [isIngredientModalOpen, setIsIngredientModalOpen] = React.useState(false);
     const [IngredientModal, setIngredientModal] = React.useState(null);
-
-    const openModal = (element) => {
-      setIsIngredientModalOpen(true);
-      setIngredientModal(element);
-    }
+    const {constructorItemDispatcher} = React.useContext(ConstructorContext);  
+    const tabRefBun = React.useRef(null);
+    const tabRefSauce = React.useRef(null);
+    const tabRefMain = React.useRef(null);
+    
+    // const openModal = (element) => {
+    //   setIsIngredientModalOpen(true);
+    //   setIngredientModal(element);
+    // };
 
     const closeModal = () => {
       setIsIngredientModalOpen(false);
       setIngredientModal(null);
-    }
+    };
 
-    const Tabs = {
-      bun: "bun",
-      sauce: "sauce",
-      main: "main"
-    }
-    const buns = ingredient.filter((item) => item.type === Tabs.bun); 
-    const mains = ingredient.filter((item) => item.type === Tabs.main); 
-    const sauces = ingredient.filter((item) => item.type === Tabs.sauce); 
-
-    const ingredientsForBurgerRef = React.useRef();
-
-    const scrollRef = React.useRef(null);
-      function executeScroll(selectTab) {
-        setCurrent(selectTab);
-        const item = document.getElementById(selectTab);
-        if (item) {
-          return item.scrollIntoView({ behavior: "smooth" });
-        }
+    const handleAddItem = (ingredient) => {
+      constructorItemDispatcher({type: 'add', payload: ingredient})
+    };      
+    
+    function executeScroll(selectTab) {
+      setCurrent(selectTab);
+      const item = document.getElementById(selectTab);
+      if (item) {
+        return item.scrollIntoView({ behavior: "smooth" });
       }
+    }
 
   return (
       <section className={burgerIngredientsStyle.section}>
@@ -55,14 +52,23 @@ function BurgerIngredients({ingredient}) {
             Начинки
           </Tab>
         </div>
-        <div className={burgerIngredientsStyle.container}>
-          <h2 className="text text_type_main-medium" id="buns" ref={ingredientsForBurgerRef}>Булки</h2>
-          <BurgerComponents ingredients={buns} ref={scrollRef} openModal={openModal} />
-          <h2 className="text text_type_main-medium" id="sauces" ref={ingredientsForBurgerRef}>Соусы</h2>
-          <BurgerComponents ingredients={sauces} ref={scrollRef} openModal={openModal} />
-          <h2 className="text text_type_main-medium" id="mains" ref={ingredientsForBurgerRef}>Начинки</h2>
-          <BurgerComponents ingredients={mains} ref={scrollRef} openModal={openModal} />
-        </div>
+        <li className={burgerIngredientsStyle.container}>
+          <h2 className="text text_type_main-medium" id="buns" ref={tabRefBun}>Булки</h2>
+          <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
+            {ingredientsList.data.map((item) => item.type === 'bun' &&
+              <IngredientBurger ingredient={item} key={item._id}  /*openModal={openModal}*/ handleAddItem={handleAddItem} />)}
+          </ul>
+          <h2 className="text text_type_main-medium" id="sauces" ref={tabRefSauce}>Соусы</h2>
+          <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
+            {ingredientsList.data.map((item) => item.type === 'sauce' &&   
+              <IngredientBurger ingredient={item} key={item._id}  /*openModal={openModal}*/ handleAddItem={handleAddItem} />)}
+          </ul>
+          <h2 className="text text_type_main-medium" id="mains" ref={tabRefMain}>Начинки</h2>
+          <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
+            {ingredientsList.data.map((item) => item.type === 'main' &&
+              <IngredientBurger ingredient={item} key={item._id}  /*openModal={openModal}*/ handleAddItem={handleAddItem} />)}
+          </ul>
+        </li>
         {isIngredientModalOpen && (
           <Modal onClose={closeModal} title="Детали ингредиента">
             {IngredientModal}
@@ -72,8 +78,6 @@ function BurgerIngredients({ingredient}) {
   );
 }
 
-BurgerIngredients.propTypes = {
-  ingredient: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
-}
+
 
 export default BurgerIngredients;

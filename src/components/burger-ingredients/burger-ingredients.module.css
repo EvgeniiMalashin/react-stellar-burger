@@ -3,10 +3,21 @@
 }
 
 .container {
-  max-width: 600px;
-  height: 584px;
+  max-height: 532px;
   overflow-y: scroll;
-  scroll-behavior: smooth;
+  overflow-x: hidden;
+  position: relative;
+  list-style-type: none;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 32px 24px;
+  justify-items: center;
+  list-style: none;
+  align-content: center;
+  margin: 0;
 }
 
 .menu {

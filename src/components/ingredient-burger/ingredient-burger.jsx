@@ -3,9 +3,11 @@ import ingredientBurgerStyle from "./ingredient-burger.module.css";
 import {ingredientPropType} from "../../utils/prop-types.js";
 import PropTypes from "prop-types";
 
-const IngredientBurger = ({ingredient, onClick}) => {
+const IngredientBurger = ({ingredient, handleAddItem}) => {
   return (
-    <div className={ingredientBurgerStyle.ingredient} onClick={onClick}>
+    <div className={ingredientBurgerStyle.ingredient} onClick={() => {
+      handleAddItem(ingredient)
+  }}>
       <Counter count={1} size="default" extraClass="m-1" />
       <img src={ingredient.image} alt={ingredient.name} />
         <div className={ingredientBurgerStyle.price}>
@@ -19,7 +21,7 @@ const IngredientBurger = ({ingredient, onClick}) => {
 
 IngredientBurger.propTypes = {
   ingredient: ingredientPropType.isRequired,
-  onClick: PropTypes.func.isRequired
+  handleAddItem: PropTypes.func.isRequired
 }
 
 export default IngredientBurger;
