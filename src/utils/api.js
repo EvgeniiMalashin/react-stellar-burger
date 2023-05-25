@@ -7,7 +7,7 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export function getIngredients() {
-  return fetch(`${API}/ingredients`)
-  .then(res => checkResponse(res))
+export function request(endPoint, options) {
+  const url = API + endPoint;
+  return fetch(url, options).then(checkResponse)
 }
