@@ -1,7 +1,7 @@
 import ingredientDetails from "./ingredient-details.module.css";
-import {ingredientPropType} from "../../utils/prop-types";
+import { ingredientPropType } from "../../utils/prop-types";
 
-function IngredientDetails({ingredient}) {
+function IngredientDetails({ ingredient }) {
   return (
     <div className={ingredientDetails.container}>
       <img src={ingredient.image_large} alt={ingredient.name}></img>
@@ -27,7 +27,7 @@ function IngredientDetails({ingredient}) {
     </div>
   )
 }
-  
+
 IngredientDetails.propTypes = {
   ingredient: ingredientPropType.isRequired,
 }

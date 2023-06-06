@@ -9,8 +9,8 @@ function AppHeader() {
           <ul className={appHeaderStyles.list}>
             <li>
               <a href="#burger-constructor" className={appHeaderStyles.link}>
-              <BurgerIcon />
-              <p className="text text_type_main-default text_color_primary">Конструктор</p>
+                <BurgerIcon />
+                <p className="text text_type_main-default text_color_primary">Конструктор</p>
               </a>
             </li>
             <li>
@@ -22,7 +22,7 @@ function AppHeader() {
           </ul>
         </nav>
         <div className={appHeaderStyles.logo}>
-          <Logo /> 
+          <Logo />
         </div>
         <a href="#personal-account" className={appHeaderStyles.link}>
           <ProfileIcon />
