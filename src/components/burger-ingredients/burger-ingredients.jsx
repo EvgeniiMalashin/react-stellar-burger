@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../utils/getIngredients";
 import { CLOSE_DETAILS } from "../../services/actions/popup";
 
+
 const items = (state) => state.ingredients;
 const itemsDetails = (state) => state.ingredientDetails;
 
@@ -19,6 +20,7 @@ function BurgerIngredients() {
   const tabRefBun = React.useRef(null);
   const tabRefSauce = React.useRef(null);
   const tabRefMain = React.useRef(null);
+  
 
   React.useEffect(() => {
     dispatch(getIngredients())
@@ -36,6 +38,22 @@ function BurgerIngredients() {
     }
   }
 
+  const bun = React.useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
+  const sauce = React.useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
+  const main = React.useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
+
+  
+  const handleScroll = (val) => {
+    if (val.target.scrollTop < tabRefSauce.current.offsetTop) {
+        setCurrent("buns")
+    } else if (val.target.scrollTop < tabRefMain.current.offsetTop) {
+        setCurrent("sauces")
+    } else {
+        setCurrent("mains")
+    }
+}
+
+
   return (
     <section className={burgerIngredientsStyle.section}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
@@ -50,21 +68,21 @@ function BurgerIngredients() {
           Начинки
         </Tab>
       </div>
-      <li className={burgerIngredientsStyle.container}>
+      <li className={burgerIngredientsStyle.container} onScroll={handleScroll}>
         <h2 className="text text_type_main-medium" id="buns" ref={tabRefBun}>Булки</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
-          {ingredients.map((item) => item.type === 'bun' &&
-            <IngredientBurger ingredient={item} key={item._id} />)}
+          {bun.map((item) => (
+            <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
         <h2 className="text text_type_main-medium" id="sauces" ref={tabRefSauce}>Соусы</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
-          {ingredients.map((item) => item.type === 'sauce' &&
-            <IngredientBurger ingredient={item} key={item._id} />)}
+          {sauce.map((item) => (
+            <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
         <h2 className="text text_type_main-medium" id="mains" ref={tabRefMain}>Начинки</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
-          {ingredients.map((item) => item.type === 'main' &&
-            <IngredientBurger ingredient={item} key={item._id} />)}
+          {main.map((item) => (
+            <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
       </li>
       {visible && (
