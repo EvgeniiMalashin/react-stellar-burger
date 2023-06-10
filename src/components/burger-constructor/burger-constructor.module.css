@@ -9,7 +9,7 @@
   list-style-type: none;
   margin-top: 100px;
   max-width: 584px;
-  max-height: 532px;  
+  max-height: 532px;
 }
 
 .main {
@@ -21,14 +21,14 @@
   scroll-behavior: smooth;
 }
 
-.notBunItem{
+.notBunItem {
   width: 560px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   column-gap: 14px;
 }
-  
+
 .order {
   display: flex;
   margin-top: 40px;
