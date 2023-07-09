@@ -1,20 +1,38 @@
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import appStyles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+
+import { getIngredients } from "../../utils/getIngredients";
+
+import { Home, NotFound, Login, Register, Profile } from "../../pages/index";
+
+
+
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
+
   return (
     <div className={appStyles.app}>
-      <AppHeader />
-      <main className={appStyles.main}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
+      
+      <BrowserRouter>
+        <AppHeader />
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="*" element={<NotFound/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/profile" element={<Profile/>} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
