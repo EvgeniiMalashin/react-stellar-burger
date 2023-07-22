@@ -1,7 +1,6 @@
 import { useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import { v4 as uuidv4 } from 'uuid';
 import update from 'immutability-helper';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
@@ -88,7 +87,6 @@ function BurgerConstructor() {
       <div className={burgerConstructorStyle.list}>
         {constructorItem.length > 0 && constructorItem.map((item) => item.type === 'bun' ?
           <ConstructorElement
-            key={uuidv4()}
             type="top"
             isLocked={true}
             text={`${item.name} (верх)`}
@@ -101,7 +99,6 @@ function BurgerConstructor() {
             <li key={item._id + index} className={burgerConstructorStyle.notBunItem}>
               <DragIcon />
               <MovementElement
-                key={uuidv4()}
                 ingredient={item}
                 index={index}
                 moveItem={moveItem}
@@ -113,7 +110,6 @@ function BurgerConstructor() {
         {constructorItem.length > 0 && constructorItem.map((item) => item.type === 'bun' ?
           <ConstructorElement
             type="bottom"
-            key={uuidv4()}
             isLocked={true}
             text={`${item.name} (низ)`}
             price={item.price}

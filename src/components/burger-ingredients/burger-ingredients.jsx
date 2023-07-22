@@ -2,22 +2,16 @@ import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientsStyle from "./burger-ingredients.module.css";
 import IngredientBurger from "../ingredient-burger/ingredient-burger";
-import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../../utils/getIngredients";
+import { useSelector } from "react-redux";
 
 const items = (state) => state.ingredients;
 
 function BurgerIngredients() {
   const { ingredients } = useSelector(items);
-  const dispatch = useDispatch();
   const [current, setCurrent] = React.useState("buns");
   const tabRefBun = React.useRef(null);
   const tabRefSauce = React.useRef(null);
   const tabRefMain = React.useRef(null);
-
-  React.useEffect(() => {
-    dispatch(getIngredients())
-  }, []);
 
   function executeScroll(selectTab) {
     setCurrent(selectTab);
