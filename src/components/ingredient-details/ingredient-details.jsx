@@ -1,7 +1,14 @@
 import ingredientDetails from "./ingredient-details.module.css";
-import { ingredientPropType } from "../../utils/prop-types";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-function IngredientDetails({ ingredient }) {
+function IngredientDetails() {
+  const { id } = useParams();
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
+  const ingredient = ingredients.find(item => item._id === id);
+
+  if (!ingredient) return null
+
   return (
     <div className={ingredientDetails.container}>
       <img src={ingredient.image_large} alt={ingredient.name}></img>
@@ -25,11 +32,7 @@ function IngredientDetails({ ingredient }) {
         </li>
       </ul>
     </div>
-  )
-}
-
-IngredientDetails.propTypes = {
-  ingredient: ingredientPropType.isRequired,
+  );
 }
 
 export default IngredientDetails;

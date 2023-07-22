@@ -1,10 +1,10 @@
 import {
     FORGOT_PASSWORD_REQUEST,
-    FORGOT_PASSWORD_OK,
-    FORGOT_PASSWORD_FAIL,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_ERROR,
     NEW_PASSWORD_REQUEST,
-    NEW_PASSWORD_OK,
-    NEW_PASSWORD_FAIL,
+    NEW_PASSWORD_SUCCESS,
+    NEW_PASSWORD_ERROR,
   } from "../actions/password";
   
   const initialState = {
@@ -25,13 +25,13 @@ import {
           passRequest: false,
           passFail: false,
         };
-      case FORGOT_PASSWORD_OK:
+      case FORGOT_PASSWORD_SUCCESS:
         return {
           ...state,
           passRequest: true,
           passFail: false,
         };
-      case FORGOT_PASSWORD_FAIL:
+      case FORGOT_PASSWORD_ERROR:
         return {
           ...state,
           passRequest: false,
@@ -46,13 +46,13 @@ import {
           newPassRequest: false,
           newPassFail: false,
         };
-      case NEW_PASSWORD_OK:
+      case NEW_PASSWORD_SUCCESS:
         return {
           ...state,
           newPassRequest: true,
           newPassFail: false,
         };
-      case NEW_PASSWORD_FAIL:
+      case NEW_PASSWORD_ERROR:
         return {
           ...state,
           newPassRequest: false,

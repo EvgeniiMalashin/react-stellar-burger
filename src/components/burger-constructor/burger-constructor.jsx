@@ -11,6 +11,7 @@ import { ADD_ITEM, MOVE_ITEMS } from "../../services/actions/burger-constructor"
 import { postOrder } from "../../utils/postOrder";
 import { CLOSE_ORDER } from "../../services/actions/popup";
 import burgerConstructorStyle from "./burger-constructor.module.css";
+import { useNavigate } from "react-router-dom";
 
 const order = (state) => state.order.order;
 const orderInfo = (state) => state.orderDetails;
@@ -23,7 +24,8 @@ function BurgerConstructor() {
   const orderNumber = useSelector(order);
   const orderDetails = useSelector(orderInfo);
   const orderSuccess = useSelector(success);
-
+  const navigate = useNavigate();
+  const user = useSelector((store) => store.user.isLoggedIn);
   const [, dropTarget] = useDrop({
     accept: 'items',
     drop(item) {
@@ -38,7 +40,7 @@ function BurgerConstructor() {
     dispatch({
       type: CLOSE_ORDER
     })
-  }
+  };
 
   const totalPrice = useMemo(() =>
     constructorItem.reduce((acc, cur) => cur.type === "bun" ? acc + cur.price * 2 : acc + cur.price, 0),
@@ -52,7 +54,11 @@ function BurgerConstructor() {
   };
 
   const createOrder = () => {
-    dispatch(postOrder(requestOptions));
+    if (user) {
+      dispatch(postOrder(requestOptions));
+    } else {
+      navigate('/login');
+    }
   };
 
   const moveItem = useCallback((dragIndex, hoverIndex) => {
@@ -70,7 +76,6 @@ function BurgerConstructor() {
       type: MOVE_ITEMS,
       payload: [...sortedItemsWithBuns]
     });
-
   }, [constructorItem, dispatch]);
 
   const hasBun = useMemo(

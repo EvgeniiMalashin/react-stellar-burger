@@ -1,12 +1,12 @@
 import { passwordReset, newPass } from "../../utils/useUser";
 export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
-export const FORGOT_PASSWORD_OK = "FORGOT_PASSWORD_OK";
-export const FORGOT_PASSWORD_FAIL = "FORGOT_PASSWORD_FAIL";
+export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
+export const FORGOT_PASSWORD_ERROR = "FORGOT_PASSWORD_ERROR";
 export const NEW_PASSWORD_REQUEST = "NEW_PASSWORD_REQUEST";
-export const NEW_PASSWORD_OK = "NEW_PASSWORD_OK";
-export const NEW_PASSWORD_FAIL = "NEW_PASSWORD_FAIL";
+export const NEW_PASSWORD_SUCCESS = "NEW_PASSWORD_SUCCESS";
+export const NEW_PASSWORD_ERROR = "NEW_PASSWORD_ERROR";
 
-export const resetPassword = (email, history) => {
+export const resetPassword = (email) => {
   return function (dispatch) {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST,
@@ -16,13 +16,13 @@ export const resetPassword = (email, history) => {
       .then((res) => {
         if (res.success) {
           dispatch({
-            type: FORGOT_PASSWORD_OK,
+            type: FORGOT_PASSWORD_SUCCESS,
           });
         }
       })
       .catch(() =>
         dispatch({
-          type: FORGOT_PASSWORD_FAIL,
+          type: FORGOT_PASSWORD_ERROR,
         })
       );
   };
@@ -38,12 +38,12 @@ export const newPassword = (password, token) => {
     newPass(password, token)
       .then((res) => {
         dispatch({
-          type: NEW_PASSWORD_OK,
+          type: NEW_PASSWORD_SUCCESS,
         });
       })
       .catch(() =>
         dispatch({
-          type: NEW_PASSWORD_FAIL,
+          type: NEW_PASSWORD_ERROR,
         })
       );
   };

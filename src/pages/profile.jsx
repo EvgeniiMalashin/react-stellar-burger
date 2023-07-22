@@ -1,23 +1,16 @@
 import profileStyles from "./profile.module.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  getUser,
-  userLogout,
-  patchUser,
-} from "../services/actions/user";
+import { getUser, userLogout, patchUser } from "../services/actions/user";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Button,
-  Input,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const Profile = () => {
   const [activeLinkProfile, setActiveLinkProfile] = useState("profile");
   const [activeButton, setActiveButton] = useState();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((store) => store.user.refreshToken);
@@ -60,25 +53,22 @@ const Profile = () => {
       <div className={profileStyles.profileContainer}>
         <div>
           <div
-            className={`${
-              activeLinkProfile === "profile" ? " " : "text_color_inactive"
-            } ${profileStyles.menu} text text_type_main-medium `}
+            className={`${activeLinkProfile === "profile" ? " " : "text_color_inactive"
+              } ${profileStyles.menu} text text_type_main-medium `}
             onClick={handleInfoClick}
           >
             Профиль
           </div>
           <div
-            className={`${
-              activeLinkProfile === "orders" ? " " : "text_color_inactive"
-            } ${profileStyles.menu} text text_type_main-medium  `}
+            className={`${activeLinkProfile === "orders" ? " " : "text_color_inactive"
+              } ${profileStyles.menu} text text_type_main-medium  `}
             onClick={handleOrdersClick}
           >
             История заказов
           </div>
           <div
-            className={`${
-              activeLinkProfile === "exit" ? " " : "text_color_inactive"
-            } ${profileStyles.menu} text text_type_main-medium mb-20`}
+            className={`${activeLinkProfile === "exit" ? " " : "text_color_inactive"
+              } ${profileStyles.menu} text text_type_main-medium mb-20`}
             onClick={handleExitClick}
           >
             Выход
@@ -152,6 +142,6 @@ const Profile = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Profile;
