@@ -11,6 +11,7 @@ import { postOrder } from "../../utils/postOrder";
 import { CLOSE_ORDER } from "../../services/actions/popup";
 import burgerConstructorStyle from "./burger-constructor.module.css";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const order = (state) => state.order.order;
 const orderInfo = (state) => state.orderDetails;
@@ -25,12 +26,16 @@ function BurgerConstructor() {
   const orderSuccess = useSelector(success);
   const navigate = useNavigate();
   const user = useSelector((store) => store.user.isLoggedIn);
+  
   const [, dropTarget] = useDrop({
     accept: 'items',
     drop(item) {
+      
       dispatch({
         type: ADD_ITEM,
-        payload: item
+        payload: {...item,
+        uuid: uuidv4(),}
+        
       })
     }
   });
@@ -81,12 +86,13 @@ function BurgerConstructor() {
     () => constructorItem.some(item => item.type === 'bun'),
     [constructorItem]
   );
-
+  
   return (
     <div className={burgerConstructorStyle.container} ref={dropTarget}>
       <div className={burgerConstructorStyle.list}>
         {constructorItem.length > 0 && constructorItem.map((item) => item.type === 'bun' ?
           <ConstructorElement
+            key={ item.uuid }
             type="top"
             isLocked={true}
             text={`${item.name} (верх)`}
@@ -96,7 +102,7 @@ function BurgerConstructor() {
           : null)}
         <ul className={burgerConstructorStyle.main}>
           {constructorItem.length > 0 && constructorItem.map((item, index) => item.type !== 'bun' ?
-            <li key={item._id + index} className={burgerConstructorStyle.notBunItem}>
+            <li key={ item.uuid } className={burgerConstructorStyle.notBunItem}>
               <DragIcon />
               <MovementElement
                 ingredient={item}
@@ -109,6 +115,7 @@ function BurgerConstructor() {
         </ul>
         {constructorItem.length > 0 && constructorItem.map((item) => item.type === 'bun' ?
           <ConstructorElement
+            key={ item.uuid }
             type="bottom"
             isLocked={true}
             text={`${item.name} (низ)`}
