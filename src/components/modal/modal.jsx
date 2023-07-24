@@ -4,8 +4,8 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import modalStyle from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from 'prop-types';
-const reactModals = document.getElementById("react-modals");
 function Modal({ children, onClose, title }) {
+  const reactModals = document.getElementById("react-modals");
   React.useEffect(() => {
     function closeEsc(evt) {
       if (evt.key === 'Escape') {
@@ -16,7 +16,7 @@ function Modal({ children, onClose, title }) {
     return () => {
       document.removeEventListener('keydown', closeEsc);
     }
-  })
+  });
 
   return ReactDOM.createPortal(
     <>

@@ -1,4 +1,5 @@
 .container {
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,9 +9,11 @@
 }
 
 .list {
+  width: 520px;
+  padding-inline-start: 0;
   display: flex;
   flex-direction: row;
-  column-gap: 20px;
+  justify-content: space-between;
   list-style-type: none;
 }
 

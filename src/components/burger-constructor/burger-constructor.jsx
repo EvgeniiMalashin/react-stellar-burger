@@ -1,7 +1,6 @@
 import { useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import { v4 as uuidv4 } from 'uuid';
 import update from 'immutability-helper';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
@@ -11,6 +10,8 @@ import { ADD_ITEM, MOVE_ITEMS } from "../../services/actions/burger-constructor"
 import { postOrder } from "../../utils/postOrder";
 import { CLOSE_ORDER } from "../../services/actions/popup";
 import burgerConstructorStyle from "./burger-constructor.module.css";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const order = (state) => state.order.order;
 const orderInfo = (state) => state.orderDetails;
@@ -23,13 +24,18 @@ function BurgerConstructor() {
   const orderNumber = useSelector(order);
   const orderDetails = useSelector(orderInfo);
   const orderSuccess = useSelector(success);
-
+  const navigate = useNavigate();
+  const user = useSelector((store) => store.user.isLoggedIn);
+  
   const [, dropTarget] = useDrop({
     accept: 'items',
     drop(item) {
+      
       dispatch({
         type: ADD_ITEM,
-        payload: item
+        payload: {...item,
+        uuid: uuidv4(),}
+        
       })
     }
   });
@@ -38,7 +44,7 @@ function BurgerConstructor() {
     dispatch({
       type: CLOSE_ORDER
     })
-  }
+  };
 
   const totalPrice = useMemo(() =>
     constructorItem.reduce((acc, cur) => cur.type === "bun" ? acc + cur.price * 2 : acc + cur.price, 0),
@@ -52,7 +58,11 @@ function BurgerConstructor() {
   };
 
   const createOrder = () => {
-    dispatch(postOrder(requestOptions));
+    if (user) {
+      dispatch(postOrder(requestOptions));
+    } else {
+      navigate('/login');
+    }
   };
 
   const moveItem = useCallback((dragIndex, hoverIndex) => {
@@ -70,20 +80,19 @@ function BurgerConstructor() {
       type: MOVE_ITEMS,
       payload: [...sortedItemsWithBuns]
     });
-
   }, [constructorItem, dispatch]);
 
   const hasBun = useMemo(
     () => constructorItem.some(item => item.type === 'bun'),
     [constructorItem]
   );
-
+  
   return (
     <div className={burgerConstructorStyle.container} ref={dropTarget}>
       <div className={burgerConstructorStyle.list}>
         {constructorItem.length > 0 && constructorItem.map((item) => item.type === 'bun' ?
           <ConstructorElement
-            key={uuidv4()}
+            key={ item.uuid }
             type="top"
             isLocked={true}
             text={`${item.name} (верх)`}
@@ -93,10 +102,9 @@ function BurgerConstructor() {
           : null)}
         <ul className={burgerConstructorStyle.main}>
           {constructorItem.length > 0 && constructorItem.map((item, index) => item.type !== 'bun' ?
-            <li key={item._id + index} className={burgerConstructorStyle.notBunItem}>
+            <li key={ item.uuid } className={burgerConstructorStyle.notBunItem}>
               <DragIcon />
               <MovementElement
-                key={uuidv4()}
                 ingredient={item}
                 index={index}
                 moveItem={moveItem}
@@ -107,8 +115,8 @@ function BurgerConstructor() {
         </ul>
         {constructorItem.length > 0 && constructorItem.map((item) => item.type === 'bun' ?
           <ConstructorElement
+            key={ item.uuid }
             type="bottom"
-            key={uuidv4()}
             isLocked={true}
             text={`${item.name} (низ)`}
             price={item.price}

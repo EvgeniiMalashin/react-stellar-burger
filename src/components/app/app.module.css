@@ -6,9 +6,3 @@
   padding-bottom: 40px;
 }
 
-.main {
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-  column-gap: 56px;
-}

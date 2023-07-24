@@ -2,33 +2,16 @@ import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientsStyle from "./burger-ingredients.module.css";
 import IngredientBurger from "../ingredient-burger/ingredient-burger";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../../utils/getIngredients";
-import { CLOSE_DETAILS } from "../../services/actions/popup";
-
+import { useSelector } from "react-redux";
 
 const items = (state) => state.ingredients;
-const itemsDetails = (state) => state.ingredientDetails;
 
 function BurgerIngredients() {
   const { ingredients } = useSelector(items);
-  const dispatch = useDispatch();
-  const { currentItem, visible } = useSelector(itemsDetails);
   const [current, setCurrent] = React.useState("buns");
   const tabRefBun = React.useRef(null);
   const tabRefSauce = React.useRef(null);
   const tabRefMain = React.useRef(null);
-  
-
-  React.useEffect(() => {
-    dispatch(getIngredients())
-  }, []);
-
-  const closeModal = () => {
-    dispatch({ type: CLOSE_DETAILS })
-  };
 
   function executeScroll(selectTab) {
     setCurrent(selectTab);
@@ -36,23 +19,21 @@ function BurgerIngredients() {
     if (item) {
       return item.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   const bun = React.useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
   const sauce = React.useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
   const main = React.useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
 
-  
   const handleScroll = (val) => {
     if (val.target.scrollTop < tabRefSauce.current.offsetTop) {
-        setCurrent("buns")
+      setCurrent("buns")
     } else if (val.target.scrollTop < tabRefMain.current.offsetTop) {
-        setCurrent("sauces")
+      setCurrent("sauces")
     } else {
-        setCurrent("mains")
+      setCurrent("mains")
     }
-}
-
+  };
 
   return (
     <section className={burgerIngredientsStyle.section}>
@@ -85,15 +66,8 @@ function BurgerIngredients() {
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
       </li>
-      {visible && (
-        <Modal onClose={closeModal} title="Детали ингредиента">
-          <IngredientDetails ingredient={currentItem} />
-        </Modal>)
-      }
     </section>
   );
 }
-
-
 
 export default BurgerIngredients;
