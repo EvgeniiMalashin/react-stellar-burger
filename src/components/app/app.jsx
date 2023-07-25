@@ -4,7 +4,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import appStyles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import { getIngredients } from "../../utils/getIngredients";
-import { Home, NotFound, Login, Register, Profile, ForgotPassword, ResetPassword, IngredientPage } from "../../pages/index";
+import { Home, NotFound, Login, Register, Profile, ForgotPassword, ResetPassword, IngredientPage, OrdersFeed } from "../../pages/index";
 import ProtectedRoute from "../protected-route";
 import { getCookie } from "../../utils/cookie";
 import { refreshToken, getUser } from "../../services/actions/user";
@@ -45,10 +45,14 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/login" element={<ProtectedRoute pass={false} component={<Login />} />} />
         <Route path="/register" element={<ProtectedRoute pass={false} component={<Register />} />} />
-        <Route path="/profile" element={<ProtectedRoute pass={true} component={<Profile />} />} />
+        <Route path="/profile" element={<ProtectedRoute pass={true} component={<Profile pass={true}/>} />} />
+
+        <Route path="/profile/orders" element={<ProtectedRoute pass={true} component={<Profile pass={false}/>} />} />
+
         <Route path="/forgot-password" element={<ProtectedRoute pass={false} component={<ForgotPassword />} />} />
         <Route path="/reset-password" element={<ProtectedRoute pass={false} component={<ResetPassword />} />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
+        <Route path="/orders-feed" element={<OrdersFeed />} />
       </Routes>
       {background && (
         <Routes>

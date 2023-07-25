@@ -53,7 +53,10 @@ function BurgerConstructor() {
 
   const requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: window.localStorage.getItem("accessToken"),
+    },
     body: JSON.stringify({ ingredients: constructorItem.map(x => x._id) })
   };
 

@@ -1,12 +1,19 @@
 import profileStyles from "./profile.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUser, userLogout, patchUser } from "../services/actions/user";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import FeedProfile from "../components/feed-profile/feed-profile";
 
-const Profile = () => {
-  const [activeLinkProfile, setActiveLinkProfile] = useState("profile");
+
+
+const Profile = ({pass}) => {
+  
+  const profileLink = useMatch("/profile");
+  const profileOrdersLink = useMatch("/profile/orders");
+
+ 
   const [activeButton, setActiveButton] = useState();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -24,15 +31,18 @@ const Profile = () => {
     setPassword("******");
   }, []);
 
-  const handleOrdersClick = (id) => {
-    setActiveLinkProfile("orders");
+  const handleOrdersClick = () => {
+    navigate('/profile/orders', { replace: true });
+    
+    
   };
   const handleInfoClick = () => {
     navigate('/profile', { replace: true });
-    setActiveLinkProfile("profile");
+    
+    
   };
   const handleExitClick = () => {
-    setActiveLinkProfile("exit");
+    
     dispatch(userLogout());
     navigate('/login', { replace: true });
   };
@@ -53,21 +63,21 @@ const Profile = () => {
       <div className={profileStyles.profileContainer}>
         <div>
           <div
-            className={`${activeLinkProfile === "profile" ? " " : "text_color_inactive"
+            className={`${profileLink ? " " : "text_color_inactive"
               } ${profileStyles.menu} text text_type_main-medium `}
             onClick={handleInfoClick}
           >
             Профиль
           </div>
           <div
-            className={`${activeLinkProfile === "orders" ? " " : "text_color_inactive"
+            className={`${profileOrdersLink ? " " : "text_color_inactive"
               } ${profileStyles.menu} text text_type_main-medium  `}
             onClick={handleOrdersClick}
           >
             История заказов
           </div>
           <div
-            className={`${activeLinkProfile === "exit" ? " " : "text_color_inactive"
+            className={`${"text_color_inactive"
               } ${profileStyles.menu} text text_type_main-medium mb-20`}
             onClick={handleExitClick}
           >
@@ -77,6 +87,7 @@ const Profile = () => {
             В этом разделе вы можете изменить свои персональные данные
           </p>
         </div>
+{ pass ? (
         <form onSubmit={onSubmit}>
           <Input
             type={"text"}
@@ -138,7 +149,10 @@ const Profile = () => {
               </Button>
             </div>
           )}
-        </form>
+        </form>) : (
+          <FeedProfile/>
+        )}
+        
       </div>
     </div>
   );
