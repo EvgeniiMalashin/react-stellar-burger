@@ -40,6 +40,7 @@ const FeedItem = ({ order, path }) => {
           className={styles.link}
           to={{ pathname: path }}
           onClick={() => clickHandler(order)}
+          state={{ background: true }}
         >
           <div className={styles.item__info}>
             <p className="text text_type_digits-default">#{order.number}</p>
@@ -52,6 +53,17 @@ const FeedItem = ({ order, path }) => {
           >
             {order.name}
           </h4>
+
+          { path === `/profile/orders/${order._id}` ? (
+            <p
+            className={`${styles.orderInfo__status} text text_type_main-small mb-15`}
+            style={{ color: order.status === "done" ? "#00CCCC" : "white" }}
+          >
+            {order.status === "done" ? "Выполнен" : "Готовится"}
+          </p>
+          ) : null
+          }  
+
           <div className={styles.item__summary}>
             <div className={styles.pictos}>
               {findIngredient

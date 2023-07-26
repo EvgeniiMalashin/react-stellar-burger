@@ -18,6 +18,7 @@
   
   .orderInfo__status {
     color: var(--blue-txt);
+    font-size: 16px;
   }
   
   .orderInfo__ingredients {

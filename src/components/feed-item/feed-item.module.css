@@ -19,6 +19,7 @@
   .item__name {
     font-size: 24px;
     line-height: 30px;
+    margin-bottom: 8px;
     
   }
   
@@ -62,4 +63,10 @@
   
   .itemImg {
     height: 64px;
+  }
+
+  .orderInfo__status {
+    color: var(--blue-txt);
+    font-size: 16px;
+    margin-bottom: 24px;
   }

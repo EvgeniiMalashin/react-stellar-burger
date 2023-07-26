@@ -7,7 +7,7 @@ import ForgotPassword from "./forgotPassword";
 import ResetPassword from "./resetpassword";
 import IngredientPage from "./ingredient";
 import OrdersFeed from "./ordersFeed";
-
+import FeedOrder from "./feedOrder";
 
 export {
   Home,
@@ -18,5 +18,6 @@ export {
   ForgotPassword,
   ResetPassword,
   IngredientPage,
-  OrdersFeed
+  OrdersFeed,
+  FeedOrder
 };

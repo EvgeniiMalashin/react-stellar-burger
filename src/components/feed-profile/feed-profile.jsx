@@ -22,7 +22,7 @@ const FeedProfile = () => {
       dispatch(wsProfileConnectionClose());
     };
   }, [dispatch]);
-  console.log(orders)
+  
   return (
     <div className={styles.feed}>
       {orders ? (

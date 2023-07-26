@@ -15,7 +15,7 @@ import {
     wsProfileConnectionInit,
   } from "../../services/actions/ws-actions-profile-orders";
   
-  const FeedOrderDetails = ({ orderPrice }) => {
+  const FeedOrderDetails = () => {
     const dispatch = useDispatch();
     const orderCurrent = useSelector((store) => store.current.currentOrder);
     const { ingredients } = useSelector((store) => store.ingredients);
@@ -25,9 +25,12 @@ import {
     const { id } = useParams();
     const [sortedIngredients, setSortedIngredients] = useState(null);
     const [order, setOrder] = useState(null);
-    // const { path } = useMatch();
+    const [orderPrice, setOrderPrise] = useState(null);
+    
     const feedPath = useMatch("/feed/:id");
     const profilePath = useMatch("/profile/orders/:id");
+
+    
   
     useEffect(() => {
       if (orders) {
@@ -36,6 +39,10 @@ import {
         const findIngredient = order.ingredients.map(
           (id) => ingredients.filter((item) => item._id === id)[0]
         );
+        const orderPrice = findIngredient
+        .filter((el) => el !== undefined)
+        .reduce((total, ingredient) => total + ingredient.price, 0);
+        
         const sortedIngredients = [];
         findIngredient.map((ingr) => {
           const isLocated =
@@ -50,6 +57,7 @@ import {
           }
         });
         setOrder(order);
+        setOrderPrise(orderPrice);
         setSortedIngredients(sortedIngredients);
       }
     }, [orderCurrent, orders]);
@@ -62,6 +70,9 @@ import {
         profilePath && dispatch(wsProfileConnectionClose());
       };
     }, []);
+
+    
+
   
     return order ? (
       <div className={styles.orderInfo__section}>
