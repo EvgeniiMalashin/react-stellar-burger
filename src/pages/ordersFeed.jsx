@@ -3,15 +3,12 @@ import { useEffect } from "react";
 import FeedBoard from "../components/feed-board/feed-board";
 import FeedOrder from "../components/feed-order/feed-order";
 import ordersFeedStyles from "./ordersFeed.module.css";
-import {
-  wsConnectionInit,
-  wsConnectionClose,
-} from "../services/actions/ws-actions-orders";
+import { wsConnectionInit, wsConnectionClose } from "../services/actions/ws-actions-orders";
 
 const OrdersFeed = () => {
   const orders = useSelector((store) => store.orders.orders);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(wsConnectionInit());
     return () => {
@@ -26,8 +23,8 @@ const OrdersFeed = () => {
           Лента заказов
         </h2>
         <div className={ordersFeedStyles.columns}>
-          <FeedOrder/>
-          <FeedBoard />          
+          <FeedOrder />
+          <FeedBoard />
         </div>
       </div>
     )

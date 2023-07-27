@@ -1,12 +1,11 @@
-import styles from "./feed-profile.module.css";
+import feedProfileStyles from "./feed-profile.module.css";
 import FeedItem from "../feed-item/feed-item";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { wsProfileConnectionInit, wsProfileConnectionClose } from "../../services/actions/ws-actions-profile-orders";
 
-
 const FeedProfile = () => {
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
   const orders = useSelector((store) => store.profileOrders.profileOrders);
   const [ordersReverse, setOrdersReverse] = useState([]);
   useEffect(() => {
@@ -22,9 +21,9 @@ const FeedProfile = () => {
       dispatch(wsProfileConnectionClose());
     };
   }, [dispatch]);
-  
+
   return (
-    <div className={styles.feed}>
+    <div className={feedProfileStyles.feed}>
       {orders ? (
         <>
           {ordersReverse.map((order) => (

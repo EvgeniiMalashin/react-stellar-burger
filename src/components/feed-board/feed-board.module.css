@@ -6,13 +6,10 @@
     text-align: start;
 }
 
-
-
 .list_numbers {
     min-width: 272px;
     display: grid;
     flex-direction: column;
-    
     gap: 8px;
     flex-wrap: wrap;
     height: 400px;

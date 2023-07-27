@@ -4,7 +4,11 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import modalStyle from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from 'prop-types';
-function Modal({ children, onClose, title }) {
+import { removeCurrentOrder } from "../../services/actions/order";
+import { useDispatch } from "react-redux";
+
+function Modal({ children, onClose, title, order }) {
+  const dispatch = useDispatch();
   const reactModals = document.getElementById("react-modals");
   React.useEffect(() => {
     function closeEsc(evt) {
@@ -13,8 +17,10 @@ function Modal({ children, onClose, title }) {
       }
     }
     document.addEventListener('keydown', closeEsc);
+    dispatch(removeCurrentOrder(order));
     return () => {
       document.removeEventListener('keydown', closeEsc);
+      dispatch(removeCurrentOrder(order));
     }
   });
 
@@ -38,7 +44,8 @@ function Modal({ children, onClose, title }) {
 Modal.propTypes = {
   children: PropTypes.element,
   onClose: PropTypes.func.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
+  order: PropTypes.object
 }
 
 export default Modal;

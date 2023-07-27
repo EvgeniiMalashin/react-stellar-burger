@@ -1,72 +1,72 @@
 .item {
-    width: 90%;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 40px;
-    background-color: rgba(28, 28, 33, 1);
-    margin-bottom: 16px;
-  }
-  
-  .item__info {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 24px;
-  }
-  
-  .item__name {
-    font-size: 24px;
-    line-height: 30px;
-    margin-bottom: 8px;
-    
-  }
-  
-  .item__summary {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .total {
-    display: flex;
-  }
-  
-  .link {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .pictos {
-    display: flex;
-    flex-direction: row-reverse;
-  }
-  
-  .imageContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 64px;
-    width: 64px;
-    border: 5px solid rgba(128, 26, 255, 1);
-    border-radius: 50px;
-    margin-left: -20px;
-    padding: 4px;
-    background-color: rgba(19, 19, 22, 1);
-  }
-  
-  .imageContainer:last-child {
-    margin-left: 0;
-  }
-  
-  .itemImg {
-    height: 64px;
-  }
+  width: 90%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+  background-color: rgba(28, 28, 33, 1);
+  margin-bottom: 16px;
+}
 
-  .orderInfo__status {
-    color: var(--blue-txt);
-    font-size: 16px;
-    margin-bottom: 24px;
-  }
+.item__info {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.item__name {
+  font-size: 24px;
+  line-height: 30px;
+  margin-bottom: 8px;
+
+}
+
+.item__summary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total {
+  display: flex;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.pictos {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  width: 64px;
+  border: 5px solid rgba(128, 26, 255, 1);
+  border-radius: 50px;
+  margin-left: -20px;
+  padding: 4px;
+  background-color: rgba(19, 19, 22, 1);
+}
+
+.imageContainer:last-child {
+  margin-left: 0;
+}
+
+.itemImg {
+  height: 64px;
+}
+
+.status {
+  color: var(--blue-txt);
+  font-size: 16px;
+  margin-bottom: 24px;
+}
