@@ -12,6 +12,7 @@ import { CLOSE_ORDER } from "../../services/actions/popup";
 import burgerConstructorStyle from "./burger-constructor.module.css";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { accessToken } from "../../utils/constatnts";
 
 const order = (state) => state.order.order;
 const orderInfo = (state) => state.orderDetails;
@@ -55,7 +56,7 @@ function BurgerConstructor() {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
-      Authorization: window.localStorage.getItem("accessToken"),
+      Authorization: accessToken,
     },
     body: JSON.stringify({ ingredients: constructorItem.map(x => x._id) })
   };

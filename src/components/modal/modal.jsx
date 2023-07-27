@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { removeCurrentOrder } from "../../services/actions/order";
 import { useDispatch } from "react-redux";
 
-function Modal({ children, onClose, title, order }) {
+function Modal({ children, onClose, title }) {
   const dispatch = useDispatch();
   const reactModals = document.getElementById("react-modals");
   React.useEffect(() => {
@@ -17,10 +17,10 @@ function Modal({ children, onClose, title, order }) {
       }
     }
     document.addEventListener('keydown', closeEsc);
-    dispatch(removeCurrentOrder(order));
+    dispatch(removeCurrentOrder());
     return () => {
       document.removeEventListener('keydown', closeEsc);
-      dispatch(removeCurrentOrder(order));
+      dispatch(removeCurrentOrder());
     }
   });
 
@@ -44,8 +44,7 @@ function Modal({ children, onClose, title, order }) {
 Modal.propTypes = {
   children: PropTypes.element,
   onClose: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  order: PropTypes.object
+  title: PropTypes.string  
 }
 
 export default Modal;

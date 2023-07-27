@@ -1,5 +1,6 @@
 import feedBoardStyle from "./feed-board.module.css";
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
 
 function FeedBoard() {
   const orders = useSelector((store) => store.orders.orders.orders);
@@ -18,7 +19,8 @@ function FeedBoard() {
     );
   };
 
-  const statusArray = findOrdersByStatus(orders);
+  const statusArray = useMemo(() => findOrdersByStatus(orders), [orders]);
+  
   return (
     <div className={`${feedBoardStyle.container}`}>
       <div className={`${feedBoardStyle.container_list}`}>

@@ -5,10 +5,10 @@ import { rootReducer } from "./reducers";
 import { socketMiddleware } from "./middleware/socketMiddleware";
 import { wsActions } from "./actions/ws-actions-orders";
 import { wsProfileActions } from "./actions/ws-actions-profile-orders";
+import { baseUrl } from "../utils/constatnts";
 
-
-const wsUrl = "wss://norma.nomoreparties.space/orders/all";
-const wsProfileUrl = "wss://norma.nomoreparties.space/orders";
+const wsUrl = baseUrl + "/orders/all";
+const wsProfileUrl = baseUrl + "/orders";
 
 const initialState = {};
 

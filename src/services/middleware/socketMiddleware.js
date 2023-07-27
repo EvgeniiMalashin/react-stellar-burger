@@ -1,3 +1,5 @@
+import { accessToken } from "../../utils/constatnts";
+
 export const socketMiddleware = (wsUrl, wsActions, isAuth) => {
   return (store) => {
     let socket = null;
@@ -8,7 +10,7 @@ export const socketMiddleware = (wsUrl, wsActions, isAuth) => {
       const { wsInit, onError, onOpen, onClose, onMessage, wsSendData } =
         wsActions;
 
-      const accessToken = window.localStorage.getItem("accessToken");
+      
 
       if (type === wsInit && isAuth) {
         socket = new WebSocket(
