@@ -1,4 +1,5 @@
 import { request } from "./api";
+import { accessToken } from "./constatnts";
 
 export const passwordReset = async (email) => {
   return request('/password-reset', {
@@ -69,7 +70,7 @@ export const userGetInfo = async () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: window.localStorage.getItem("accessToken"),
+      Authorization: accessToken,
     },
   });
 }
@@ -79,7 +80,7 @@ export const userPatchInfo = async (email, name, password) => {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: window.localStorage.getItem("accessToken"),
+      Authorization: accessToken,
     },
     body: JSON.stringify({
       email: email,

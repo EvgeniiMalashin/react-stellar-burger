@@ -5,6 +5,9 @@ import { postOrderReducer } from "./order";
 import { ingredientReducer, orderReducer } from "./popup";
 import { userReducer } from "./user"
 import { passwordReducer } from "./password";
+import { currentOrderReducer } from "./order";
+import { wsReducer } from "./ws-reducer-orders";
+import { wsProfileReducer } from "./ws-reducer-profile-orders";
 
 export const rootReducer = combineReducers({
   burgerConstructor: burgerConstructorReducer,
@@ -13,6 +16,9 @@ export const rootReducer = combineReducers({
   ingredientDetails: ingredientReducer,
   orderDetails: orderReducer,
   user: userReducer,
-  password: passwordReducer
+  password: passwordReducer,
+  current: currentOrderReducer,
+  orders: wsReducer,
+  profileOrders: wsProfileReducer
 });
 

@@ -1,0 +1,21 @@
+.feed {
+    margin-top: -80px;
+    width: 844px;
+    height: 852px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: scroll;
+    height: 750px;
+
+}
+
+.feed::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2f2f37;
+}
+
+.feed::-webkit-scrollbar-thumb {
+    background-color: #8585ad;
+}
