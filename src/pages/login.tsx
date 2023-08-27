@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../services/actions/user";
+import { AppDispatch } from "../services/store";
 
-const Login = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   function onClickRegister() {
     navigate('/register', { replace: true });
@@ -19,7 +20,7 @@ const Login = () => {
     navigate('/forgot-password', { replace: true });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(userLogin(email, password));
     navigate('/', { replace: true });

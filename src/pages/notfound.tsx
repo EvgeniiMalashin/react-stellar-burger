@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import notfoundStyles from './notfound.module.css';
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <div className={notfoundStyles.box}>
       <p className={notfoundStyles.text}>К сожалению, страница по введенному вами адресу не существует или еще не готова. Хотите вернуться на

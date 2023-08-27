@@ -1,15 +1,19 @@
 import feedBoardStyle from "./feed-board.module.css";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import { RootState } from "../../services/store";
+import { TOrder } from "../../utils/types/types";
+
+
 
 function FeedBoard() {
-  const orders = useSelector((store) => store.orders.orders.orders);
-  const total = useSelector((store) => store.orders.orders.total);
-  const totalToday = useSelector((store) => store.orders.orders.totalToday);
+  const orders = useSelector((store:RootState) => store.orders.orders.orders);
+  const total = useSelector((store: RootState) => store.orders.orders.total);
+  const totalToday = useSelector((store: RootState) => store.orders.orders.totalToday);
 
-  const findOrdersByStatus = (arr) => {
+  const findOrdersByStatus = (arr: any) => {
     return arr?.reduce(
-      (acc, curr) => {
+      (acc: any, curr: any) => {
         curr.status === "done"
           ? (acc["done"] = [...acc["done"], curr])
           : (acc["pending"] = [...acc["pending"], curr]);
@@ -29,7 +33,7 @@ function FeedBoard() {
         </h3>
         <ul className={`${feedBoardStyle.list_numbers}`}>
           {statusArray
-            ? statusArray.done.map((order, i) => (
+            ? statusArray.done.map((order: TOrder, i: string) => (
               <li
                 className={`${feedBoardStyle.number} text text_type_digits-default`}
                 key={i}
@@ -46,7 +50,7 @@ function FeedBoard() {
         </h3>
         <ul className={`${feedBoardStyle.list_numbers}`}>
           {statusArray
-            ? statusArray.pending.map((order, i) => (
+            ? statusArray.pending.map((order: TOrder, i: string) => (
               <li className={`text text_type_digits-default`} key={i}>
                 {order.number}
               </li>

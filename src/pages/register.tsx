@@ -4,14 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { newUser } from "../services/actions/user";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { AppDispatch } from "../services/store";
 
 const Register = () => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const handleRegister = (e) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(newUser(email, password, name));
     navigate('/', { replace: true });

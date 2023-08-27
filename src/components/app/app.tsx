@@ -11,9 +11,10 @@ import { refreshToken, getUser } from "../../services/actions/user";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import FeedOrderDetails from "../feed-order-details/feed-order-details";
+import { AppDispatch } from "../../services/store";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -22,15 +23,15 @@ function App() {
 
   useEffect(() => {
     dispatch(getIngredients());
-    dispatch(getUser());
+    dispatch(getUser(token));
   }, [dispatch]);
 
   useEffect(() => {
     if (!cookie && token) {
-      dispatch(refreshToken(token));
+      dispatch(refreshToken());
     }
     if (cookie && token) {
-      dispatch(getUser());
+      dispatch(getUser(token));
     }
   }, [dispatch, cookie, token]);
 
@@ -58,8 +59,8 @@ function App() {
       {background && (
         <Routes>
           <Route path="/ingredients/:id" element={<Modal onClose={closeModal} title="Детали ингредиента"><IngredientDetails /></Modal>} />
-          <Route path="/feed/:id" element={<Modal onClose={closeModal} ><FeedOrderDetails /></Modal>} />
-          <Route path="/profile/orders/:id" element={<Modal onClose={closeModal} ><FeedOrderDetails /></Modal>} />
+          <Route path="/feed/:id" element={<Modal onClose={closeModal} title="" ><FeedOrderDetails /></Modal>} />
+          <Route path="/profile/orders/:id" element={<Modal onClose={closeModal} title=""><FeedOrderDetails /></Modal>} />
         </Routes>
       )}
     </div>

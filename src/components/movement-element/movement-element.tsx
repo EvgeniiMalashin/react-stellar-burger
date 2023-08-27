@@ -2,14 +2,22 @@ import movementElementStyle from "./movement-element.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useDrag, useDrop } from "react-dnd";
+import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
+import { TItem } from "../../utils/types/types";
+
+type TConstructorItem = {
+  ingredient: TItem;
+  id: string;
+  index: number;
+  moveItem: (dragIndex: number, hoverIndex: number) => void;
+};
 
 
-function MovementElement({ ingredient, index, moveItem, id }) {
+function MovementElement  ({ ingredient, index, moveItem, id }: TConstructorItem) {
   const { name, price, image } = ingredient;
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-  const deleteItemAction = (index) => dispatch({ type: 'DELETE_ITEM', payload: index });
+  const deleteItemAction = (index: number) => dispatch({ type: 'DELETE_ITEM', payload: index });
   const handleDeleteItem = useCallback(() => deleteItemAction(index), [index]);
 
   const [{ handlerId }, drop] = useDrop({
@@ -19,7 +27,7 @@ function MovementElement({ ingredient, index, moveItem, id }) {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: any, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return
       }
@@ -33,9 +41,9 @@ function MovementElement({ ingredient, index, moveItem, id }) {
 
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      const clientOffset = monitor.getClientOffset()
+      
 
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+      const hoverClientY = Number(monitor.getClientOffset()) - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return
@@ -62,7 +70,7 @@ function MovementElement({ ingredient, index, moveItem, id }) {
   return (
     <div
       className={movementElementStyle.main} ref={ref} style={{ opacity: Number(!isDragging) }} data-handler-id={handlerId}>
-      <ConstructorElement
+      <ConstructorElement 
         text={name}
         price={price}
         thumbnail={image}
@@ -72,7 +80,5 @@ function MovementElement({ ingredient, index, moveItem, id }) {
     </div>
   );
 }
-
-
 
 export default MovementElement;

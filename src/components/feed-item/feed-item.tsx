@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addCurrentOrder } from "../../services/actions/order";
 import { v4 as uuidv4 } from "uuid";
+import { RootState } from "../../services/store";
+import { TItem, TOrder, TOrderItem } from "../../utils/types/types";
 
-const FeedItem = ({ order, path }) => {
+const FeedItem: React.FC<TOrderItem> = ({ order, path }) => {
   const dispatch = useDispatch();
-  const ingredients = useSelector((store) => store.ingredients.ingredients);
+  const ingredients = useSelector((store: RootState) => store.ingredients.ingredients);
   const orderIngredients = order.ingredients;
-  const findIngredient = orderIngredients.map((id) => ingredients.filter((ingr) => ingr._id === id)[0]);
+  const findIngredient = orderIngredients.map((id) => ingredients.filter((ingr: TItem) => ingr._id === id)[0]);
   const orderPrice = findIngredient.filter((el) => el !== undefined).reduce((total, ingredient) => total + ingredient.price, 0);
-  const clickHandler = (order) => { dispatch(addCurrentOrder(order)); };
+  const clickHandler = (order: TOrder) => { dispatch(addCurrentOrder(order)); };
 
   return (
     <div className={feedItemStyles.item}>
@@ -63,7 +65,7 @@ const FeedItem = ({ order, path }) => {
             <p className="text text_type_digits-default ml-6 mr-1">
               {orderPrice}
             </p>
-            <CurrencyIcon />
+            <CurrencyIcon type="primary"/>
           </div>
         </div>
       </Link>

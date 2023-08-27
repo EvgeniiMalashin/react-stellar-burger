@@ -13,20 +13,22 @@ import burgerConstructorStyle from "./burger-constructor.module.css";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { accessToken } from "../../utils/constatnts";
+import { AppDispatch, RootState } from "../../services/store";
+import { TItem } from "../../utils/types/types";
 
-const order = (state) => state.order.order;
-const orderInfo = (state) => state.orderDetails;
-const otherIngredients = (state) => state.burgerConstructor;
-const success = (state) => state.order.success;
+const order = (state: RootState) => state.order;
+const orderInfo = (state: RootState) => state.orderDetails;
+const otherIngredients = (state: RootState) => state.burgerConstructor;
+const success = (state: RootState) => state.order.success;
 
 function BurgerConstructor() {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const constructorItem = useSelector(otherIngredients);
-  const orderNumber = useSelector(order);
+  const orderNumber: any = useSelector(order);
   const orderDetails = useSelector(orderInfo);
   const orderSuccess = useSelector(success);
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user.isLoggedIn);
+  const user = useSelector((store: RootState) => store.user.isLoggedIn);
   
   const [, dropTarget] = useDrop({
     accept: 'items',
@@ -34,7 +36,7 @@ function BurgerConstructor() {
       
       dispatch({
         type: ADD_ITEM,
-        payload: {...item,
+        payload: {item,
         uuid: uuidv4(),}
         
       })
@@ -48,7 +50,7 @@ function BurgerConstructor() {
   };
 
   const totalPrice = useMemo(() =>
-    constructorItem.reduce((acc, cur) => cur.type === "bun" ? acc + cur.price * 2 : acc + cur.price, 0),
+    constructorItem.reduce((acc: any, cur: any) => cur.type === "bun" ? acc + cur.price * 2 : acc + cur.price, 0),
     [constructorItem]
   );
 
@@ -58,7 +60,7 @@ function BurgerConstructor() {
       "Content-Type": "application/json",
       Authorization: accessToken,
     },
-    body: JSON.stringify({ ingredients: constructorItem.map(x => x._id) })
+    body: JSON.stringify({ ingredients: constructorItem.map((x: TItem) => x._id) })
   };
 
   const createOrder = () => {
@@ -70,15 +72,15 @@ function BurgerConstructor() {
   };
 
   const moveItem = useCallback((dragIndex, hoverIndex) => {
-    const bunsIngredients = constructorItem.filter(item => item.type === 'bun')
-    const otherIngredients = constructorItem.filter(item => item.type !== 'bun')
+    const bunsIngredients = constructorItem.filter((item: TItem) => item.type === 'bun')
+    const otherIngredients = constructorItem.filter((item: TItem) => item.type !== 'bun')
     const sortedIngredients = update(otherIngredients, {
       $splice:
         [
           [dragIndex, 1],
           [hoverIndex, 0, otherIngredients[dragIndex]],
         ],
-    }, [otherIngredients])
+    })
     const sortedItemsWithBuns = [...bunsIngredients, ...sortedIngredients]
     dispatch({
       type: MOVE_ITEMS,
@@ -87,14 +89,14 @@ function BurgerConstructor() {
   }, [constructorItem, dispatch]);
 
   const hasBun = useMemo(
-    () => constructorItem.some(item => item.type === 'bun'),
+    () => constructorItem.some((item: TItem) => item.type === 'bun'),
     [constructorItem]
   );
   
   return (
     <div className={burgerConstructorStyle.container} ref={dropTarget}>
       <div className={burgerConstructorStyle.list}>
-        {constructorItem.length > 0 && constructorItem.map((item) => item.type === 'bun' ?
+        {constructorItem.length > 0 && constructorItem.map((item: TItem) => item.type === 'bun' ?
           <ConstructorElement
             key={ item.uuid }
             type="top"
@@ -105,9 +107,9 @@ function BurgerConstructor() {
           />
           : null)}
         <ul className={burgerConstructorStyle.main}>
-          {constructorItem.length > 0 && constructorItem.map((item, index) => item.type !== 'bun' ?
+          {constructorItem.length > 0 && constructorItem.map((item: TItem, index: number) => item.type !== 'bun' ?
             <li key={ item.uuid } className={burgerConstructorStyle.notBunItem}>
-              <DragIcon />
+              <DragIcon type="secondary"/>
               <MovementElement
                 ingredient={item}
                 index={index}
@@ -117,7 +119,7 @@ function BurgerConstructor() {
             : null)
           }
         </ul>
-        {constructorItem.length > 0 && constructorItem.map((item) => item.type === 'bun' ?
+        {constructorItem.length > 0 && constructorItem.map((item: TItem) => item.type === 'bun' ?
           <ConstructorElement
             key={ item.uuid }
             type="bottom"
@@ -131,14 +133,14 @@ function BurgerConstructor() {
       <div className={burgerConstructorStyle.order}>
         <div className={burgerConstructorStyle.cost}>
           <p className="text text_type_digits-medium">{totalPrice}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary"/>
         </div>
         <Button htmlType="button" size="large" onClick={createOrder} disabled={!hasBun || false}>
           Оформить заказ
         </Button>
       </div>
       {orderDetails.visible && orderSuccess && (
-        <Modal onClose={closeModal}>
+        <Modal onClose={closeModal} title="">
           <OrderDetails orderNumber={orderNumber} />
         </Modal>)
       }

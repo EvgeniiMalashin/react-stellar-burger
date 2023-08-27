@@ -3,17 +3,19 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientsStyle from "./burger-ingredients.module.css";
 import IngredientBurger from "../ingredient-burger/ingredient-burger";
 import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
+import { TItem } from "../../utils/types/types";
 
-const items = (state) => state.ingredients;
+const items = (state: RootState) => state.ingredients;
 
 function BurgerIngredients() {
   const { ingredients } = useSelector(items);
   const [current, setCurrent] = React.useState("buns");
   const tabRefBun = React.useRef(null);
-  const tabRefSauce = React.useRef(null);
-  const tabRefMain = React.useRef(null);
+  const tabRefSauce: any = React.useRef(null);
+  const tabRefMain: any = React.useRef(null);
 
-  function executeScroll(selectTab) {
+  function executeScroll(selectTab: any) {
     setCurrent(selectTab);
     const item = document.getElementById(selectTab);
     if (item) {
@@ -21,11 +23,11 @@ function BurgerIngredients() {
     }
   };
 
-  const bun = React.useMemo(() => ingredients.filter((item) => item.type === 'bun'), [ingredients]);
-  const sauce = React.useMemo(() => ingredients.filter((item) => item.type === 'sauce'), [ingredients]);
-  const main = React.useMemo(() => ingredients.filter((item) => item.type === 'main'), [ingredients]);
+  const bun = React.useMemo(() => ingredients.filter((item: TItem) => item.type === 'bun'), [ingredients]);
+  const sauce = React.useMemo(() => ingredients.filter((item: TItem) => item.type === 'sauce'), [ingredients]);
+  const main = React.useMemo(() => ingredients.filter((item: TItem) => item.type === 'main'), [ingredients]);
 
-  const handleScroll = (val) => {
+  const handleScroll = (val: any) => {
     if (val.target.scrollTop < tabRefSauce.current.offsetTop) {
       setCurrent("buns")
     } else if (val.target.scrollTop < tabRefMain.current.offsetTop) {
@@ -52,17 +54,17 @@ function BurgerIngredients() {
       <li className={burgerIngredientsStyle.container} onScroll={handleScroll}>
         <h2 className="text text_type_main-medium" id="buns" ref={tabRefBun}>Булки</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
-          {bun.map((item) => (
+          {bun.map((item: TItem) => (
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
         <h2 className="text text_type_main-medium" id="sauces" ref={tabRefSauce}>Соусы</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
-          {sauce.map((item) => (
+          {sauce.map((item: TItem) => (
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
         <h2 className="text text_type_main-medium" id="mains" ref={tabRefMain}>Начинки</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
-          {main.map((item) => (
+          {main.map((item: TItem) => (
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
       </li>

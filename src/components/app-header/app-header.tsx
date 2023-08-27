@@ -2,8 +2,12 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-dev
 import appHeaderStyles from "./app-header.module.css";
 import { NavLink, useMatch } from "react-router-dom";
 
+interface IStyle {
+  isActive: boolean
+}
+
 function AppHeader() {
-  const style = ({ isActive }) =>
+  const style = ({ isActive }: IStyle) =>
     isActive
       ? `${appHeaderStyles.link} text text_type_main-default text_color_primary `
       : `${appHeaderStyles.link} text text_type_main-default text_color_inactive `

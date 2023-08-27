@@ -3,15 +3,21 @@ import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import modalStyle from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import PropTypes from 'prop-types';
+
 import { removeCurrentOrder } from "../../services/actions/order";
 import { useDispatch } from "react-redux";
 
-function Modal({ children, onClose, title }) {
+type TModal = {
+  children: React.ReactNode;
+  onClose: () => void;
+  title: string
+};
+
+function Modal({ children, onClose, title }: TModal) {
   const dispatch = useDispatch();
-  const reactModals = document.getElementById("react-modals");
+  const reactModals = document.getElementById("react-modals") as HTMLDivElement;
   React.useEffect(() => {
-    function closeEsc(evt) {
+    function closeEsc(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         onClose();
       }
@@ -41,10 +47,6 @@ function Modal({ children, onClose, title }) {
   );
 }
 
-Modal.propTypes = {
-  children: PropTypes.element,
-  onClose: PropTypes.func.isRequired,
-  title: PropTypes.string  
-}
+
 
 export default Modal;

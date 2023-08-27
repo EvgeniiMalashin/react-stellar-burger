@@ -5,14 +5,15 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../services/store";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
-  const email = useSelector((store) => store.password.email);
+  const email = useSelector((store: RootState) => store.password.email);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const resetPassHandler = (e) => {
+  const dispatch: AppDispatch = useDispatch();
+  const resetPassHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(newPassword(password, token));
   };

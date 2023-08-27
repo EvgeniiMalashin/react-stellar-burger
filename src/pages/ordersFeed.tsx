@@ -4,9 +4,10 @@ import FeedBoard from "../components/feed-board/feed-board";
 import FeedOrder from "../components/feed-order/feed-order";
 import ordersFeedStyles from "./ordersFeed.module.css";
 import { wsConnectionInit, wsConnectionClose } from "../services/actions/ws-actions-orders";
+import { RootState } from "../services/store";
 
-const OrdersFeed = () => {
-  const orders = useSelector((store) => store.orders.orders);
+const OrdersFeed: React.FC = (): JSX.Element | any => {
+  const orders = useSelector((store: RootState) => store.orders.orders);
   const dispatch = useDispatch();
 
   useEffect(() => {

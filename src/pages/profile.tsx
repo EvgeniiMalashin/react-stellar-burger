@@ -5,19 +5,20 @@ import { getUser, userLogout, patchUser } from "../services/actions/user";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import FeedProfile from "../components/feed-profile/feed-profile";
+import { AppDispatch, RootState } from "../services/store";
 
-const Profile = ({ pass }) => {
+const Profile = ({ pass }: any) => {
   const profileLink = useMatch("/profile");
   const profileOrdersLink = useMatch("/profile/orders");
-  const [activeButton, setActiveButton] = useState();
+  const [activeButton, setActiveButton] = useState<boolean | string>();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const token = useSelector((store) => store.user.refreshToken);
-  const userName = useSelector((store) => store.user.name);
-  const userEmail = useSelector((store) => store.user.email);
+  const dispatch: AppDispatch = useDispatch();
+  const token = useSelector((store: RootState) => store.user.refreshToken);
+  const userName = useSelector((store: RootState) => store.user.name);
+  const userEmail = useSelector((store: RootState) => store.user.email);
   
   useEffect(() => {
     dispatch(getUser(token));
@@ -33,7 +34,7 @@ const Profile = ({ pass }) => {
     navigate('/profile', { replace: true });
   };
   const handleExitClick = () => {
-    dispatch(userLogout());
+    dispatch(userLogout(''));
     navigate('/login', { replace: true });
   };
 
@@ -43,7 +44,7 @@ const Profile = ({ pass }) => {
     setActiveButton(false);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(patchUser(email, name));
   };

@@ -1,9 +1,15 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "../services/store";
 
-const ProtectedRoute = ({ component, pass }) => {
+interface IProtectedRoute {
+  component: any,
+  pass: boolean 
+};
+
+const ProtectedRoute = ({ component, pass }: IProtectedRoute) => {
   const location = useLocation();
-  const userAuthState = useSelector((store) => store.user);
+  const userAuthState = useSelector((store: RootState) => store.user);
 
   if (userAuthState.isLoggedIn && !pass) {
     const { from } = location.state || { from: { pathname: "/" } };

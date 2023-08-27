@@ -2,7 +2,11 @@ import orderDetailsStyle from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { number } from "prop-types";
 
-function OrderDetails({ orderNumber }) {
+interface IOrderDetails {
+  orderNumber: number
+}
+
+function OrderDetails({ orderNumber }: IOrderDetails) {
   return (
     <div className={orderDetailsStyle.container}>
       <h2 className={`${orderDetailsStyle.number} text text_type_digits-large`}>{orderNumber}</h2>

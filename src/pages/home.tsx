@@ -4,7 +4,7 @@ import homeStyles from "./home.module.css";
 import BurgerIngredients from '../components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../components/burger-constructor/burger-constructor';
 
-function Home() {
+const Home: React.FC = () => {
   return (
     <div>
       <main className={homeStyles.main}>

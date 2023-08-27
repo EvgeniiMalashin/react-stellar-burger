@@ -129,7 +129,7 @@ export const userLogout = (token: string) => {
   };
 };
 
-export const getUser = (token: string) => {
+export const getUser = (token: any) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_USER_INFO_REQUEST,

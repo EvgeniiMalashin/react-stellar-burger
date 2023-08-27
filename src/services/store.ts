@@ -25,5 +25,6 @@ const initStore = createStore(
 );
 
 export type AppDispatch = typeof initStore.dispatch;
+export type RootState = ReturnType<typeof initStore.getState>;
 
 export default initStore;

@@ -5,10 +5,16 @@ import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd/dist/hooks";
 import React from "react";
 import { Link } from "react-router-dom";
+import { RootState } from "../../services/store";
+import { TItem } from "../../utils/types/types";
 
-const ingredients = (state) => state.burgerConstructor;
+const ingredients = (state: RootState) => state.burgerConstructor;
 
-const IngredientBurger = ({ ingredient }) => {
+interface IIngredientBurger {
+  ingredient: TItem
+}
+
+const IngredientBurger = ({ ingredient }: IIngredientBurger) => {
   const ingredientItems = useSelector(ingredients);
 
   const [, ref] = useDrag({
@@ -17,7 +23,7 @@ const IngredientBurger = ({ ingredient }) => {
   });
 
   let counter = 0;
-  React.useMemo(() => ingredientItems.forEach(element =>
+  React.useMemo(() => ingredientItems.forEach((element: TItem) =>
     element._id === ingredient._id && (element.type === 'bun' ? (counter += 2) : (counter += 1))), [ingredientItems]);
 
   return (
@@ -31,7 +37,7 @@ const IngredientBurger = ({ ingredient }) => {
         <img src={ingredient.image} alt={ingredient.name} />
         <div className={ingredientBurgerStyle.price}>
           <p className="text text_type_digits-default">{ingredient.price}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary"/>
         </div>
         <p className={`${ingredientBurgerStyle.name} text text_type_main-default`}>{ingredient.name}</p>
       </Link>

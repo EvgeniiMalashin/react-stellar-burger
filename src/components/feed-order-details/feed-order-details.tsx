@@ -3,46 +3,48 @@ import { useSelector } from "react-redux";
 import feedOrderDetailsStyles from "./feed-order-details.module.css";
 import { useParams, useMatch } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4} from "uuid"
 import { useEffect } from "react";
 import { wsConnectionInit } from "../../services/actions/ws-actions-orders";
 import { useState } from "react";
 import { wsProfileConnectionClose, wsProfileConnectionInit } from "../../services/actions/ws-actions-profile-orders";
+import { RootState } from "../../services/store";
+import { TItem, TSorted, TOrder } from "../../utils/types/types";
 
 const FeedOrderDetails = () => {
   const dispatch = useDispatch();
-  const orderCurrent = useSelector((store) => store.current.currentOrder);
-  const { ingredients } = useSelector((store) => store.ingredients);
-  const ordersAll = useSelector((store) => store.orders.orders);
-  const ordersAuth = useSelector((store) => store.profileOrders.profileOrders);
+  const orderCurrent = useSelector((store: RootState) => store.current.currentOrder);
+  const { ingredients } = useSelector((store: RootState) => store.ingredients);
+  const ordersAll = useSelector((store: RootState) => store.orders.orders);
+  const ordersAuth = useSelector((store: RootState) => store.profileOrders.profileOrders);
   const orders = ordersAll || ordersAuth;
-  const { id } = useParams();
-  const [sortedIngredients, setSortedIngredients] = useState(null);
-  const [order, setOrder] = useState(null);
+  const { id } = useParams<{ id: string }>();
+  const [sortedIngredients, setSortedIngredients] = useState<null | any[]>(null);
+  const [order, setOrder] = useState<undefined | TOrder>(undefined);
   const [orderPrice, setOrderPrise] = useState(null);
   const feedPath = useMatch("/feed/:id");
   const profilePath = useMatch("/profile/orders/:id");
 
   useEffect(() => {
     if (orders) {
-      const orderFind = orders.orders.find((i) => i._id === id);
+      const orderFind = orders.orders.find((i: any) => i._id === id);
       const order = orderCurrent ? orderCurrent : orderFind;
       const findIngredient = order.ingredients.map(
-        (id) => ingredients.filter((item) => item._id === id)[0]
+        (id: string) => ingredients.filter((item: TItem) => item._id === id)[0]
       );
       const orderPrice = findIngredient
-        .filter((el) => el !== undefined)
-        .reduce((total, ingredient) => total + ingredient.price, 0);
+        .filter((el: TItem) => el !== undefined)
+        .reduce((total: number, ingredient: TItem) => total + ingredient.price, 0);
 
-      const sortedIngredients = [];
-      findIngredient.map((ingr) => {
+      const sortedIngredients: TSorted[] = [];
+      findIngredient.map((ingr: TItem) => {
         const isLocated =
           sortedIngredients.filter((el) => el.item._id === ingr._id).length !==
           0;
         if (!isLocated) {
           sortedIngredients.push({
             item: ingr,
-            count: findIngredient.filter((item) => item._id === ingr._id)
+            count: findIngredient.filter((item: TItem) => item._id === ingr._id)
               .length,
           });
         }
@@ -82,7 +84,7 @@ const FeedOrderDetails = () => {
       </p>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <div className={feedOrderDetailsStyles.ingredients}>
-        {sortedIngredients.map((ingredient) => (
+        {sortedIngredients!.map((ingredient) => (
           <div className={feedOrderDetailsStyles.ingredient} key={uuidv4()}>
             <div className={feedOrderDetailsStyles.ingredientName}>
               <div className={feedOrderDetailsStyles.box}>
@@ -100,7 +102,7 @@ const FeedOrderDetails = () => {
               <p className="text text_type_digits-default mr-3">
                 {`${ingredient.count} x ${ingredient.item.price}`}
               </p>
-              <CurrencyIcon />
+              <CurrencyIcon type="primary"/>
             </div>
           </div>
         ))}
@@ -111,7 +113,7 @@ const FeedOrderDetails = () => {
         </p>
         <div className={feedOrderDetailsStyles.quantity}>
           <p className="text text_type_digits-default mr-2">{orderPrice}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary"/>
         </div>
       </div>
     </div>

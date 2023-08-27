@@ -1,7 +1,7 @@
 import FeedOrderDetails from "../components/feed-order-details/feed-order-details";
 import feedOrderStyles from "./feedOrder.module.css"
 
-const FeedOrder = () => {
+const FeedOrder: React.FC = (): JSX.Element | null => {
   return (
     <div className={feedOrderStyles.main}>      
       <FeedOrderDetails />

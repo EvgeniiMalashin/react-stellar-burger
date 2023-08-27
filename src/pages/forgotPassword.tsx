@@ -4,17 +4,18 @@ import { useNavigate } from "react-router-dom";
 import forgotpasswordStyles from "./forgotPassword.module.css";
 import { resetPassword } from "../services/actions/password";
 import { useState } from "react";
+import { AppDispatch } from "../services/store";
 
-const ForgotPassword = () => {
+const ForgotPassword: React.FC = (): JSX.Element | null => {
   const [email, setEmail] = useState("");
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const handleReset = (e) => {
+  const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(resetPassword(email));
     navigate('/reset-password', { replace: true });
   };
-  const handleLogin = (e) => {
+  const handleLogin = () => {
     navigate('/login', { replace: true });
   };
 
