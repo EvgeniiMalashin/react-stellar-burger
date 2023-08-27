@@ -1,9 +1,9 @@
-export const WS_PROFILE_CONNECTION_SUCCESS= 'WS_AUTH_CONNECTION_SUCCESS';
-export const WS_PROFILE_CONNECTION_ERROR = 'WS_AUTH_CONNECTION_ERROR';
-export const WS_PROFILE_CONNECTION_OPEN = 'WS_AUTH_CONNECTION_OPEN';
-export const WS_PROFILE_CONNECTION_CLOSED = 'WS_AUTH_CONNECTION_CLOSED';
-export const WS_PROFILE_GET_ORDERS = 'WS_AUTH_GET_ORDERS';
-export const WS_PROFILE_SEND_DATA= 'WS_AUTH_SEND_DATA';
+export const WS_PROFILE_CONNECTION_SUCCESS: 'WS_AUTH_CONNECTION_SUCCESS' = 'WS_AUTH_CONNECTION_SUCCESS';
+export const WS_PROFILE_CONNECTION_ERROR: 'WS_AUTH_CONNECTION_ERROR' = 'WS_AUTH_CONNECTION_ERROR';
+export const WS_PROFILE_CONNECTION_OPEN: 'WS_AUTH_CONNECTION_OPEN' = 'WS_AUTH_CONNECTION_OPEN';
+export const WS_PROFILE_CONNECTION_CLOSED: 'WS_AUTH_CONNECTION_CLOSED' = 'WS_AUTH_CONNECTION_CLOSED';
+export const WS_PROFILE_GET_ORDERS: 'WS_AUTH_GET_ORDERS' = 'WS_AUTH_GET_ORDERS';
+export const WS_PROFILE_SEND_DATA: 'WS_AUTH_SEND_DATA' = 'WS_AUTH_SEND_DATA';
 
 export const wsProfileActions = {
   wsInit: WS_PROFILE_CONNECTION_SUCCESS,
@@ -38,14 +38,14 @@ export const wsProfileConnectionInit = () => {
 	};
   };
 
-  export const wsProfileGetOrders = (data) => {
+  export const wsProfileGetOrders = (data: object) => {
 	return {
 	  type: WS_PROFILE_GET_ORDERS,
 	  payload: data,
 	};
   };
 
-  export const wsProfileSendData = (data) => {
+  export const wsProfileSendData = (data: object) => {
 	return {
 	  type: WS_PROFILE_SEND_DATA,
 	  payload: data,

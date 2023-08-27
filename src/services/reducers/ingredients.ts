@@ -6,7 +6,7 @@ const getIngredientsInitialState = {
   ingredients: []
 }
 
-export const getIngredientsReducer = (state = getIngredientsInitialState, action) => {
+export const getIngredientsReducer = (state = getIngredientsInitialState, action: any) => {
   switch (action.type) {
     case GET_INGREDIENT_REQUEST: {
       return {

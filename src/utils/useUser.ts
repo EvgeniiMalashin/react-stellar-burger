@@ -1,7 +1,7 @@
 import { request } from "./api";
 import { accessToken } from "./constatnts";
 
-export const passwordReset = async (email) => {
+export const passwordReset = async (email: string) => {
   return request('/password-reset', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -9,7 +9,7 @@ export const passwordReset = async (email) => {
   });
 }
 
-export const newPass = async (password, token) => {
+export const newPass = async (password: string, token: string) => {
   return request('/password-reset/reset', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -20,7 +20,13 @@ export const newPass = async (password, token) => {
   });
 }
 
-export const newUserReg = async ({ email, password, name }) => {
+interface IUserReg {
+  email: string;
+  password: string;
+  name: string;
+}
+
+export const newUserReg = async ({ email, password, name }: IUserReg) => {
   return request('/auth/register', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -32,7 +38,7 @@ export const newUserReg = async ({ email, password, name }) => {
   });
 }
 
-export const login = async (email, password) => {
+export const login = async (email: string, password: string) => {
   return request('/auth/login', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -75,7 +81,7 @@ export const userGetInfo = async () => {
   });
 }
 
-export const userPatchInfo = async (email, name, password) => {
+export const userPatchInfo = async (email: string, name: string, password: string) => {
   return request('/auth/user', {
     method: "PATCH",
     headers: {

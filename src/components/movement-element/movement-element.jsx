@@ -3,8 +3,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { useCallback, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { ingredientPropType } from "../../utils/prop-types";
-import PropTypes from "prop-types";
+
 
 function MovementElement({ ingredient, index, moveItem, id }) {
   const { name, price, image } = ingredient;
@@ -74,11 +73,6 @@ function MovementElement({ ingredient, index, moveItem, id }) {
   );
 }
 
-MovementElement.propTypes = {
-  ingredient: ingredientPropType.isRequired,
-  index: PropTypes.number.isRequired,
-  moveItem: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired
-}
+
 
 export default MovementElement;

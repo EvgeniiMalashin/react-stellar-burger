@@ -1,6 +1,6 @@
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientBurgerStyle from "./ingredient-burger.module.css";
-import { ingredientPropType } from "../../utils/prop-types.js";
+
 import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd/dist/hooks";
 import React from "react";
@@ -39,8 +39,6 @@ const IngredientBurger = ({ ingredient }) => {
   );
 }
 
-IngredientBurger.propTypes = {
-  ingredient: ingredientPropType.isRequired
-}
+
 
 export default IngredientBurger;

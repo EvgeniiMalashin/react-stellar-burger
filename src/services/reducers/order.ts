@@ -5,7 +5,7 @@ const postOrderInitialState = {
   orderFailed: false,
   success: false
 }
-export const postOrderReducer = (state = postOrderInitialState, action) => {
+export const postOrderReducer = (state = postOrderInitialState, action: any) => {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
       return {
@@ -22,6 +22,7 @@ export const postOrderReducer = (state = postOrderInitialState, action) => {
         success: true
       };
     }
+
     case POST_ORDER_ERROR: {
       return {
         ...state,
@@ -41,7 +42,7 @@ const initialState = {
   currentOrder: ""
 };
 
-export const currentOrderReducer = (state = initialState, action) => {
+export const currentOrderReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_CURRENT_ORDER:
       return { ...state, currentOrder: action.item };

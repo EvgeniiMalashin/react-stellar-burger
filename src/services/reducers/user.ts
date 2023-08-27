@@ -30,7 +30,7 @@ const initialState = {
   isLoggedIn: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case NEW_USER_SUCCESS:
       return {

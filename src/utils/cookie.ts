@@ -1,4 +1,4 @@
-function getCookie(name) {
+function getCookie(name: string): string | undefined {
     const matches = document.cookie.match(
       new RegExp(
         "(?:^|; )" +
@@ -9,7 +9,7 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
   }
   
-  function setCookie(name, value, props) {
+  function setCookie(name: string, value: string | null, props: any = {}): void {
     props = {
       path: "/",
       ...props,
@@ -23,7 +23,7 @@ function getCookie(name) {
     if (exp && exp.toUTCString) {
       props.expires = exp.toUTCString();
     }
-    value = encodeURIComponent(value);
+    if (value !== null) value = encodeURIComponent(value);
     let updatedCookie = name + "=" + value;
     for (const propName in props) {
       updatedCookie += "; " + propName;
@@ -35,7 +35,7 @@ function getCookie(name) {
     document.cookie = updatedCookie;
   }
   
-  function deleteCookie(name) {
+  function deleteCookie(name: string): void {
     setCookie(name, null, { expires: -1 });
   }
   

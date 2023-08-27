@@ -4,7 +4,7 @@ const ingredientInitialState = {
   visible: false,
   currentItem: {}
 }
-export const ingredientReducer = (state = ingredientInitialState, action) => {
+export const ingredientReducer = (state = ingredientInitialState, action: any) => {
   switch (action.type) {
     case OPEN_DETAILS: {
       return {
@@ -29,7 +29,7 @@ export const ingredientReducer = (state = ingredientInitialState, action) => {
 const orderInitialState = {
   visible: false
 }
-export const orderReducer = (state = orderInitialState, action) => {
+export const orderReducer = (state = orderInitialState, action: any) => {
   switch (action.type) {
     case OPEN_ORDER: {
       return {

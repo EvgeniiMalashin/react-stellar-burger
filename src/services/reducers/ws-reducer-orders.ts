@@ -11,7 +11,7 @@ import {
     error: undefined,
   };
   
-  export const wsReducer = (state = initialState, action) => {
+  export const wsReducer = (state = initialState, action: any) => {
     switch (action.type) {
       case WS_CONNECTION_SUCCESS:
         return {

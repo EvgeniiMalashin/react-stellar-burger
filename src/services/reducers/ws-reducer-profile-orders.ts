@@ -11,7 +11,7 @@ import {
     error: undefined,
   };
   
-  export const wsProfileReducer = (state = initialState, action) => {
+  export const wsProfileReducer = (state = initialState, action: any) => {
     switch (action.type) {
       case WS_PROFILE_CONNECTION_SUCCESS:
         return {

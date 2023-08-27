@@ -16,7 +16,7 @@ import {
     newPassFail: false,
   };
   
-  export const passwordReducer = (state = initialState, action) => {
+  export const passwordReducer = (state = initialState, action: any) => {
     switch (action.type) {
       case FORGOT_PASSWORD_REQUEST:
         return {

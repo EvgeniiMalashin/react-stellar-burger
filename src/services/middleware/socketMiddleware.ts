@@ -1,8 +1,18 @@
 import { accessToken } from "../../utils/constatnts";
+import { Middleware, MiddlewareAPI } from "redux";
 
-export const socketMiddleware = (wsUrl, wsActions, isAuth) => {
-  return (store) => {
-    let socket = null;
+type TWsMiddlewareActions = {
+  wsInit: string;
+  onOpen: string;
+  onError: string;
+  onClose: string;
+  onMessage: string;
+  wsSendData: string;
+};
+
+export const socketMiddleware = (wsUrl: string, wsActions: TWsMiddlewareActions, isAuth: boolean): Middleware => {
+  return (store: MiddlewareAPI) => {
+    let socket: WebSocket | null = null;
 
     return (next) => (action) => {
       const { dispatch } = store;
@@ -14,7 +24,7 @@ export const socketMiddleware = (wsUrl, wsActions, isAuth) => {
 
       if (type === wsInit && isAuth) {
         socket = new WebSocket(
-          `${wsUrl}?token=${accessToken.split("Bearer ")[1]}`
+          `${wsUrl}?token=${accessToken!.split("Bearer ")[1]}`
         );
       } else if (type === wsInit && !isAuth) {
         socket = new WebSocket(wsUrl);

@@ -24,4 +24,6 @@ const initStore = createStore(
   )
 );
 
+export type AppDispatch = typeof initStore.dispatch;
+
 export default initStore;
