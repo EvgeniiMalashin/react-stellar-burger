@@ -10,7 +10,7 @@ import { AppDispatch, RootState } from "../services/store";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
-  const email = useSelector((store: RootState) => store.password.email);
+  const email = useSelector((state: RootState) => state.password.email);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const resetPassHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,12 +32,14 @@ const ResetPassword = () => {
           Восстановление пароля
         </h2>
         <PasswordInput
+          value=""
           name={"password"}
           placeholder={"Введите новый пароль"}
           extraClass="mb-6"
           onChange={(e) => setPassword(e.target.value)}
         />
         <Input
+          value=""
           type={"text"}
           placeholder={"Введите код из письма"}
           extraClass="mb-6"

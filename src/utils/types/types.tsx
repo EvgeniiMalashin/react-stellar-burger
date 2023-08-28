@@ -1,18 +1,4 @@
-
-export type TLocation = {
-  hash: string;
-  key: string;
-  pathname: string;
-  search: string;
-  from: string;
-  background: {
-    hash: string;
-    key: string;
-    pathname: string;
-    search: string;
-    state: null;
-  };
-};
+import {Action} from 'redux';
 
 export type TItem = {
   _id: string;
@@ -62,3 +48,6 @@ export type TWsOrders = {
   total: number;
   totalToday: number;
 };
+
+type TActionCreator = (...args: any) => Action<string>;
+export type TActionFromCreators<T extends {[key in keyof T]: TActionCreator}> = ReturnType<T[keyof T]>

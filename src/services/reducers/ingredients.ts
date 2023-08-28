@@ -1,5 +1,6 @@
 import { GET_INGREDIENT_ERROR, GET_INGREDIENT_REQUEST, GET_INGREDIENT_SUCCESS } from "../actions/ingredients";
 
+
 const getIngredientsInitialState = {
   ingRequest: false,
   ingFailed: false,

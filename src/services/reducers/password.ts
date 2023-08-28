@@ -6,9 +6,12 @@ import {
     NEW_PASSWORD_SUCCESS,
     NEW_PASSWORD_ERROR,
   } from "../actions/password";
+
+  import { actionCreators } from "../actions/password";
+  import { TActionFromCreators } from "../../utils/types/types";
   
   const initialState = {
-    email: null,
+    email: '',
     token: '',
     passRequest: false,
     passFail: false,
@@ -16,7 +19,7 @@ import {
     newPassFail: false,
   };
   
-  export const passwordReducer = (state = initialState, action: any) => {
+  export const passwordReducer = (state = initialState, action: TActionFromCreators<typeof actionCreators>) => {
     switch (action.type) {
       case FORGOT_PASSWORD_REQUEST:
         return {

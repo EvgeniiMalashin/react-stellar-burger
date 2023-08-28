@@ -75,10 +75,10 @@ function MovementElement  ({ ingredient, index, moveItem, id }: TConstructorItem
         price={price}
         thumbnail={image}
         handleClose={handleDeleteItem}
-        moveItem={moveItem}
       />
     </div>
   );
 }
 
 export default MovementElement;
+

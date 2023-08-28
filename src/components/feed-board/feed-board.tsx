@@ -7,9 +7,10 @@ import { TOrder } from "../../utils/types/types";
 
 
 function FeedBoard() {
-  const orders = useSelector((store:RootState) => store.orders.orders.orders);
-  const total = useSelector((store: RootState) => store.orders.orders.total);
-  const totalToday = useSelector((store: RootState) => store.orders.orders.totalToday);
+  const ordersState = useSelector((store:RootState) => store.orders);
+  const total = ordersState.orders?.total;
+  const totalToday = ordersState.orders?.totalToday;
+  
 
   const findOrdersByStatus = (arr: any) => {
     return arr?.reduce(
@@ -23,7 +24,7 @@ function FeedBoard() {
     );
   };
 
-  const statusArray = useMemo(() => findOrdersByStatus(orders), [orders]);
+  const statusArray = useMemo(() => findOrdersByStatus(ordersState.orders?.orders), [ordersState]);
   
   return (
     <div className={`${feedBoardStyle.container}`}>

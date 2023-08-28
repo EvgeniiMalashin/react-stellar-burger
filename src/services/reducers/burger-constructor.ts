@@ -1,9 +1,10 @@
 import { ADD_ITEM, DELETE_ALL_ITEMS, DELETE_ITEM, MOVE_ITEMS } from "../actions/burger-constructor";
 import { TItem } from "../../utils/types/types";
 
+import { actionCreators } from "../actions/burger-constructor";
+import { TActionFromCreators } from "../../utils/types/types";
 
-
-export const burgerConstructorReducer = (state = [], action: any) => {
+export const burgerConstructorReducer = (state = [], action: TActionFromCreators<typeof actionCreators>) => {
   switch (action.type) {
     case ADD_ITEM:
       let bun: any = state.find((x: TItem, idx) => x.type === 'bun');

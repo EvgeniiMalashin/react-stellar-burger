@@ -49,3 +49,54 @@ export const newPassword = (password: string, token: string) => {
       );
   };
 };
+
+export const forgotPasswordRequest = (email: string) => {
+  return {
+      type: FORGOT_PASSWORD_REQUEST,
+      email
+  }
+}
+
+export const forgotPasswordSuccess = () => {
+  return {
+      type: FORGOT_PASSWORD_SUCCESS,
+  }
+}
+
+export const forgotPasswordError = () => {
+  return {
+      type: FORGOT_PASSWORD_ERROR,
+  }
+}
+
+export const newPasswordRequest = (password: string, token: string) => {
+  return {
+      type: NEW_PASSWORD_REQUEST,
+      password,
+      token
+  }
+}
+
+export const newPasswordSuccess = () => {
+  return {
+      type: NEW_PASSWORD_SUCCESS,
+  }
+}
+
+export const newPasswordError = () => {
+  return {
+      type: NEW_PASSWORD_ERROR,
+  }
+}
+
+
+
+
+export const actionCreators = {
+  forgotPasswordRequest,
+  forgotPasswordSuccess,
+  forgotPasswordError,
+  newPasswordRequest,
+  newPasswordSuccess,
+  newPasswordError,
+}

@@ -5,11 +5,11 @@ import { RootState } from "../../services/store";
 import { TOrder } from "../../utils/types/types";
 
 const FeedOrder = () => {
-  const orders = useSelector((store: RootState) => store.orders.orders);
+  const orders = useSelector((store: RootState) => store.orders.orders?.orders) || [];
   
   return (
     <div className={feedOrderStyles.feed}>
-      {orders.orders.map((order: TOrder) => (
+      {orders.map((order: TOrder) => (
         <FeedItem key={order._id} order={order} path={`/feed/${order._id}`}/>
       ))}
     </div>

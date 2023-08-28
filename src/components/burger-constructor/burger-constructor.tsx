@@ -29,16 +29,18 @@ function BurgerConstructor() {
   const orderSuccess = useSelector(success);
   const navigate = useNavigate();
   const user = useSelector((store: RootState) => store.user.isLoggedIn);
-  
+
   const [, dropTarget] = useDrop({
     accept: 'items',
-    drop(item) {
-      
+    drop(item: TItem) {
+
       dispatch({
         type: ADD_ITEM,
-        payload: {item,
-        uuid: uuidv4(),}
-        
+        payload: {
+          ...item,
+          uuid: uuidv4(),
+        }
+
       })
     }
   });
@@ -92,13 +94,13 @@ function BurgerConstructor() {
     () => constructorItem.some((item: TItem) => item.type === 'bun'),
     [constructorItem]
   );
-  
+
   return (
     <div className={burgerConstructorStyle.container} ref={dropTarget}>
       <div className={burgerConstructorStyle.list}>
         {constructorItem.length > 0 && constructorItem.map((item: TItem) => item.type === 'bun' ?
           <ConstructorElement
-            key={ item.uuid }
+            key={item.uuid}
             type="top"
             isLocked={true}
             text={`${item.name} (верх)`}
@@ -108,8 +110,8 @@ function BurgerConstructor() {
           : null)}
         <ul className={burgerConstructorStyle.main}>
           {constructorItem.length > 0 && constructorItem.map((item: TItem, index: number) => item.type !== 'bun' ?
-            <li key={ item.uuid } className={burgerConstructorStyle.notBunItem}>
-              <DragIcon type="secondary"/>
+            <li key={item.uuid} className={burgerConstructorStyle.notBunItem}>
+              <DragIcon type="secondary" />
               <MovementElement
                 ingredient={item}
                 index={index}
@@ -121,7 +123,7 @@ function BurgerConstructor() {
         </ul>
         {constructorItem.length > 0 && constructorItem.map((item: TItem) => item.type === 'bun' ?
           <ConstructorElement
-            key={ item.uuid }
+            key={item.uuid}
             type="bottom"
             isLocked={true}
             text={`${item.name} (низ)`}
@@ -133,7 +135,7 @@ function BurgerConstructor() {
       <div className={burgerConstructorStyle.order}>
         <div className={burgerConstructorStyle.cost}>
           <p className="text text_type_digits-medium">{totalPrice}</p>
-          <CurrencyIcon type="primary"/>
+          <CurrencyIcon type="primary" />
         </div>
         <Button htmlType="button" size="large" onClick={createOrder} disabled={!hasBun || false}>
           Оформить заказ
