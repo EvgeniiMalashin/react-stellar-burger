@@ -13,7 +13,7 @@ function FeedBoard() {
 
   const findOrdersByStatus = (arr: any) => {
     return arr?.reduce(
-      (acc: any, curr: any) => {
+      (acc: any , curr: any) => {
         curr.status === "done"
           ? (acc["done"] = [...acc["done"], curr])
           : (acc["pending"] = [...acc["pending"], curr]);

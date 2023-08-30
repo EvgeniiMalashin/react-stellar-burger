@@ -6,7 +6,7 @@ import { AppDispatch } from "../services/store";
 
 
 
-export function postOrder(requestOptions: any) {
+export function postOrder(requestOptions: object) {
   return function (dispatch: AppDispatch) {
     const endPoint = '/orders';
     dispatch({

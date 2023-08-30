@@ -1,3 +1,5 @@
+import { TWsOrders } from "../../utils/types/types";
+
 export const WS_PROFILE_CONNECTION_SUCCESS: 'WS_AUTH_CONNECTION_SUCCESS' = 'WS_AUTH_CONNECTION_SUCCESS';
 export const WS_PROFILE_CONNECTION_ERROR: 'WS_AUTH_CONNECTION_ERROR' = 'WS_AUTH_CONNECTION_ERROR';
 export const WS_PROFILE_CONNECTION_OPEN: 'WS_AUTH_CONNECTION_OPEN' = 'WS_AUTH_CONNECTION_OPEN';
@@ -39,7 +41,7 @@ export const wsProfileConnectionInit = () => {
 	};
   };
 
-  export const wsProfileGetOrders = (data: object) => {
+  export const wsProfileGetOrders = (data: TWsOrders) => {
 	return {
 	  type: WS_PROFILE_GET_ORDERS,
 	  payload: data,

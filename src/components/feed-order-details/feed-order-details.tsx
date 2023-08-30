@@ -26,7 +26,7 @@ const FeedOrderDetails = () => {
 
   useEffect(() => {
     if (orders) {
-      const orderFind = orders.orders.find((i: any) => i._id === id);
+      const orderFind = orders.orders.find((i) => i._id === id);
       const order = orderCurrent ? orderCurrent : orderFind;
       const findIngredient = order.ingredients.map(
         (id: string) => ingredients.filter((item: TItem) => item._id === id)[0]

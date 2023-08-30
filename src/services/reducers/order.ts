@@ -3,7 +3,7 @@ import { POST_ORDER_ERROR, POST_ORDER_REQUEST, POST_ORDER_SUCCESS, ADD_CURRENT_O
 
 
 import { actionCreators } from "../actions/order";
-import { TActionFromCreators, TCurrentOrder } from "../../utils/types/types";
+import { TActionFromCreators } from "../../utils/types/types";
 
 interface IPostOrderInitialState {
   orderNumber: number;

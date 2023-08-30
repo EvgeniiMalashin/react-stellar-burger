@@ -21,7 +21,7 @@ function BurgerIngredients() {
   const sauce = useMemo(() => ingredients.filter((item: TItem) => item.type === 'sauce'), [ingredients]);
   const main = useMemo(() => ingredients.filter((item: TItem) => item.type === 'main'), [ingredients]);
 
-  const handleTabClick = (value: string, ref: any | null) => {
+  const handleTabClick = (value: string, ref: any) => {
     ref.current.scrollIntoView({ behavior: "smooth" });
     setCurrent(value);
   };

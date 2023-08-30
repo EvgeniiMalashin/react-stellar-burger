@@ -29,13 +29,13 @@ function MovementElement  ({ ingredient, index, moveItem, id }: TConstructorItem
     },
     hover(item: any, monitor: DropTargetMonitor) {
       if (!ref.current) {
-        return
+        return;
       }
       const dragIndex = item.index
       const hoverIndex = index
 
       if (dragIndex === hoverIndex) {
-        return
+        return;
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect()
 
@@ -45,13 +45,13 @@ function MovementElement  ({ ingredient, index, moveItem, id }: TConstructorItem
 
       const hoverClientY = Number(monitor.getClientOffset()) - hoverBoundingRect.top;
 
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return
+      if (dragIndex! < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
       }
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return
+      if (dragIndex! > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
       }
-      moveItem(dragIndex - 1, hoverIndex - 1)
+      moveItem(dragIndex! - 1, hoverIndex - 1)
       item.index = hoverIndex
     },
   });

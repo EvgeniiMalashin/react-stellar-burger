@@ -46,7 +46,7 @@ function BurgerConstructor() {
   };
 
   const totalPrice = useMemo(() =>
-    constructorItem.reduce((acc: any, cur: any) => cur.type === "bun" ? acc + cur.price * 2 : acc + cur.price, 0),
+    constructorItem.reduce((acc: number, cur: TItem) => cur.type === "bun" ? acc + cur.price * 2 : acc + cur.price, 0),
     [constructorItem]
   );
 

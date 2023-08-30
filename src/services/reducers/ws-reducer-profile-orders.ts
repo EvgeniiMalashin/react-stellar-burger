@@ -6,20 +6,21 @@ import {
     WS_PROFILE_CONNECTION_CLOSED,
     WS_PROFILE_GET_ORDERS,
     actionCreator,
+    
   } from "../actions/ws-actions-profile-orders";
 
   
   type TStore = {
     wsConnected: boolean,
-    profileOrders?: any,
+    profileOrders?: TWsOrders,
     error?: string    
   }
   
-  const initialState = {
+  const initialState: TStore = {
     wsConnected: false,
   };
   
-  export const wsProfileReducer = (state: TStore = initialState, action: any) => {
+  export const wsProfileReducer = (state: TStore = initialState, action: TActionFromCreators<typeof actionCreator>) => {
     switch (action.type) {
       case WS_PROFILE_CONNECTION_SUCCESS:
         return {
