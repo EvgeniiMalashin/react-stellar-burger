@@ -1,13 +1,12 @@
 import feedBoardStyle from "./feed-board.module.css";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../utils/hooks";
 import { useMemo } from "react";
-import { RootState } from "../../services/store";
 import { TOrder } from "../../utils/types/types";
 
 
 
 function FeedBoard() {
-  const ordersState = useSelector((store:RootState) => store.orders);
+  const ordersState = useSelector((store) => store.orders);
   const total = ordersState.orders?.total;
   const totalToday = ordersState.orders?.totalToday;
   

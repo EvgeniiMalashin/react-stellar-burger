@@ -1,8 +1,8 @@
 import { request } from "./api";
 import { GET_INGREDIENT_REQUEST, GET_INGREDIENT_SUCCESS, GET_INGREDIENT_ERROR } from "../services/actions/ingredients";
-import { AppDispatch } from "../services/store";
+import { AppDispatch, AppThunk } from "../services/store";
 
-export function getIngredients() {
+export const getIngredients: AppThunk = () => {
   return function (dispatch: AppDispatch) {
     const endPoint = '/ingredients';
     dispatch({

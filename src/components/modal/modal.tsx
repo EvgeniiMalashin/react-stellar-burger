@@ -5,7 +5,7 @@ import modalStyle from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
 import { removeCurrentOrder } from "../../services/actions/order";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../utils/hooks";
 
 type TModal = {
   children: React.ReactNode;
@@ -17,8 +17,8 @@ function Modal({ children, onClose, title }: TModal) {
   const dispatch = useDispatch();
   const reactModals = document.getElementById("react-modals") as HTMLDivElement;
   React.useEffect(() => {
-    function closeEsc(evt: KeyboardEvent) {
-      if (evt.key === 'Escape') {
+    function closeEsc(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
         onClose();
       }
     }

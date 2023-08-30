@@ -2,23 +2,24 @@ import { Input, Button, EmailInput, PasswordInput } from "@ya.praktikum/react-de
 import registerStyles from "./register.module.css";
 import { useNavigate } from "react-router-dom";
 import { newUser } from "../services/actions/user";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../utils/hooks";
 import { useState } from "react";
-import { AppDispatch } from "../services/store";
 
-const Register = () => {
-  const dispatch: AppDispatch = useDispatch();
+
+const Register: React.FC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleRegister = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(newUser(email, password, name));
     navigate('/', { replace: true });
   };
 
-  function onClickLogin() {
+  const onClickLogin: React.MouseEventHandler = () => {
     navigate('/login', { replace: true });
   };
 

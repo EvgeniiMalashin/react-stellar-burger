@@ -1,22 +1,21 @@
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../utils/hooks";
 import feedOrderDetailsStyles from "./feed-order-details.module.css";
 import { useParams, useMatch } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { v4 as uuidv4} from "uuid"
 import { useEffect } from "react";
 import { wsConnectionInit } from "../../services/actions/ws-actions-orders";
 import { useState } from "react";
 import { wsProfileConnectionClose, wsProfileConnectionInit } from "../../services/actions/ws-actions-profile-orders";
-import { RootState } from "../../services/store";
+
 import { TItem, TSorted, TOrder } from "../../utils/types/types";
 
 const FeedOrderDetails = () => {
   const dispatch = useDispatch();
-  const orderCurrent = useSelector((store: RootState) => store.current.currentOrder);
-  const { ingredients } = useSelector((store: RootState) => store.ingredients);
-  const ordersAll = useSelector((store: RootState) => store.orders.orders);
-  const ordersAuth = useSelector((store: RootState) => store.profileOrders.profileOrders);
+  const orderCurrent = useSelector((store) => store.current.currentOrder);
+  const { ingredients } = useSelector((store) => store.ingredients);
+  const ordersAll = useSelector((store) => store.orders.orders);
+  const ordersAuth = useSelector((store) => store.profileOrders.profileOrders);
   const orders = ordersAll || ordersAuth;
   const { id } = useParams<{ id: string }>();
   const [sortedIngredients, setSortedIngredients] = useState<null | any[]>(null);

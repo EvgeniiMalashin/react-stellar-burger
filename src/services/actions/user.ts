@@ -1,6 +1,6 @@
 import { newUserReg, login, tokenRefresh, logout, userGetInfo, userPatchInfo } from "../../utils/useUser";
 import { setCookie } from "../../utils/cookie";
-import { AppDispatch } from "../store";
+import { AppDispatch, AppThunk } from "../store";
 
 export const NEW_USER_REQUEST: 'NEW_USER_REQUEST' = 'NEW_USER_REQUEST';
 export const NEW_USER_SUCCESS: 'NEW_USER_SUCCESS' = 'NEW_USER_SUCCESS';
@@ -26,7 +26,7 @@ export const PATCH_USER_INFO_REQUEST: 'PATCH_USER_INFO_REQUEST' = 'PATCH_USER_IN
 export const PATCH_USER_INFO_SUCCESS: 'PATCH_USER_INFO_SUCCESS' = 'PATCH_USER_INFO_SUCCESS';
 export const PATCH_USER_INFO_ERROR: 'PATCH_USER_INFO_ERROR' = 'PATCH_USER_INFO_ERROR';
 
-export const newUser = (email: string, password: string, name: string) => {
+export const newUser: AppThunk = (email: string, password: string, name: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: NEW_USER_REQUEST,
@@ -53,7 +53,7 @@ export const newUser = (email: string, password: string, name: string) => {
   };
 };
 
-export const userLogin = (email: string, password: string) => {
+export const userLogin: AppThunk = (email: string, password: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGIN_REQUEST,
@@ -81,7 +81,7 @@ export const userLogin = (email: string, password: string) => {
   };
 };
 
-export const refreshToken = () => {
+export const refreshToken: AppThunk = () => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: TOKEN_REQUEST,
@@ -105,7 +105,7 @@ export const refreshToken = () => {
   };
 };
 
-export const userLogout = (token: string) => {
+export const userLogout: AppThunk = (token: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGOUT_REQUEST,
@@ -129,7 +129,7 @@ export const userLogout = (token: string) => {
   };
 };
 
-export const getUser = (token: any) => {
+export const getUser: AppThunk = (token: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_USER_INFO_REQUEST,
@@ -147,7 +147,7 @@ export const getUser = (token: any) => {
   };
 };
 
-export const patchUser = (email: string, name: string) => {
+export const patchUser: AppThunk = (email: string, name: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: PATCH_USER_INFO_REQUEST,

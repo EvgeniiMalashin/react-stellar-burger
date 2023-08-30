@@ -1,7 +1,7 @@
 import movementElementStyle from "./movement-element.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useCallback, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../utils/hooks";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { TItem } from "../../utils/types/types";
 

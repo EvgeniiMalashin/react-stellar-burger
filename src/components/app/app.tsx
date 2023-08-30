@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../utils/hooks";
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import appStyles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
@@ -11,16 +11,17 @@ import { refreshToken, getUser } from "../../services/actions/user";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import FeedOrderDetails from "../feed-order-details/feed-order-details";
-import { AppDispatch } from "../../services/store";
+
 
 function App() {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;
   let token = localStorage.getItem("refreshToken");
   const cookie = getCookie("token");
 
+  
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(getUser(token));

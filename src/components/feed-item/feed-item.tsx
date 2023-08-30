@@ -1,15 +1,14 @@
 import feedItemStyles from "./feed-item.module.css";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../utils/hooks";
 import { addCurrentOrder } from "../../services/actions/order";
 import { v4 as uuidv4 } from "uuid";
-import { RootState } from "../../services/store";
 import { TItem, TOrder, TOrderItem } from "../../utils/types/types";
 
 const FeedItem: React.FC<TOrderItem> = ({ order, path }) => {
   const dispatch = useDispatch();
-  const ingredients = useSelector((store: RootState) => store.ingredients.ingredients);
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
   const orderIngredients = order.ingredients;
   const findIngredient = orderIngredients.map((id) => ingredients.filter((ingr: TItem) => ingr._id === id)[0]);
   const orderPrice = findIngredient.filter((el) => el !== undefined).reduce((total, ingredient) => total + ingredient.price, 0);

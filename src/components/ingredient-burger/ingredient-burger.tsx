@@ -1,21 +1,19 @@
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientBurgerStyle from "./ingredient-burger.module.css";
 
-import { useSelector } from "react-redux";
+import { useSelector } from "../../utils/hooks";
 import { useDrag } from "react-dnd/dist/hooks";
 import React from "react";
 import { Link } from "react-router-dom";
-import { RootState } from "../../services/store";
 import { TItem } from "../../utils/types/types";
 
-const ingredients = (state: RootState) => state.burgerConstructor;
 
 interface IIngredientBurger {
   ingredient: TItem
 }
 
 const IngredientBurger = ({ ingredient }: IIngredientBurger) => {
-  const ingredientItems = useSelector(ingredients);
+  const ingredientItems = useSelector((state) => state.burgerConstructor);
 
   const [, ref] = useDrag({
     type: 'items',

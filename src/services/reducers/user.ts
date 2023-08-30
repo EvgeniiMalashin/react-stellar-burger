@@ -19,7 +19,18 @@ import {
   GET_USER_INFO_ERROR
 } from "../actions/user";
 
-const initialState = {
+interface IUserState {
+  email: string | null;
+  name: string | null;
+  token: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+  request: boolean;
+  fail: boolean;
+  isLoggedIn: boolean;
+}
+
+const initialState: IUserState = {
   email: "",
   name: "",
   token: "",

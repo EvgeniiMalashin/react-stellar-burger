@@ -2,12 +2,15 @@ import profileStyles from "./profile.module.css";
 import { useNavigate, useMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUser, userLogout, patchUser } from "../services/actions/user";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../utils/hooks";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import FeedProfile from "../components/feed-profile/feed-profile";
-import { AppDispatch, RootState } from "../services/store";
 
-const Profile = ({ pass }: any) => {
+interface IProfile {
+  pass: boolean
+}
+
+const Profile = ( {pass}: IProfile ) => {
   const profileLink = useMatch("/profile");
   const profileOrdersLink = useMatch("/profile/orders");
   const [activeButton, setActiveButton] = useState<boolean | string>();
@@ -15,11 +18,12 @@ const Profile = ({ pass }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const dispatch: AppDispatch = useDispatch();
-  const token = useSelector((store: RootState) => store.user.refreshToken);
-  const userName = useSelector((store: RootState) => store.user.name);
-  const userEmail = useSelector((store: RootState) => store.user.email);
+  const dispatch = useDispatch();
+  const token = useSelector((store) => store.user.refreshToken);
+  const userName = useSelector((store) => store.user.name);
+  const userEmail = useSelector((store) => store.user.email);
   
+
   useEffect(() => {
     dispatch(getUser(token));
     setName(userName);
@@ -27,13 +31,13 @@ const Profile = ({ pass }: any) => {
     setPassword("******");
   }, []);
 
-  const handleOrdersClick = () => {
+  const handleOrdersClick: React.MouseEventHandler = () => {
     navigate('/profile/orders', { replace: true });
   };
-  const handleInfoClick = () => {
+  const handleInfoClick: React.MouseEventHandler = () => {
     navigate('/profile', { replace: true });
   };
-  const handleExitClick = () => {
+  const handleExitClick: React.MouseEventHandler = () => {
     dispatch(userLogout(''));
     navigate('/login', { replace: true });
   };
@@ -44,7 +48,7 @@ const Profile = ({ pass }: any) => {
     setActiveButton(false);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(patchUser(email, name));
   };

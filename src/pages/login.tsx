@@ -2,15 +2,15 @@ import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer
 import loginStyles from "./login.module.css"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../utils/hooks";
 import { userLogin } from "../services/actions/user";
-import { AppDispatch } from "../services/store";
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
 
   function onClickRegister() {
     navigate('/register', { replace: true });

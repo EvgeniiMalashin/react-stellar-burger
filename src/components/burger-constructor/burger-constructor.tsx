@@ -1,5 +1,5 @@
 import { useMemo, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../utils/hooks";
 import { useDrop } from "react-dnd";
 import update from 'immutability-helper';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -13,22 +13,16 @@ import burgerConstructorStyle from "./burger-constructor.module.css";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { accessToken } from "../../utils/constatnts";
-import { AppDispatch, RootState } from "../../services/store";
 import { TItem } from "../../utils/types/types";
 
-const order = (state: RootState) => state.order;
-const orderInfo = (state: RootState) => state.orderDetails;
-const otherIngredients = (state: RootState) => state.burgerConstructor;
-const success = (state: RootState) => state.order.success;
-
 function BurgerConstructor() {
-  const dispatch: AppDispatch = useDispatch();
-  const constructorItem = useSelector(otherIngredients);
-  const orderNumber: any = useSelector(order);
-  const orderDetails = useSelector(orderInfo);
-  const orderSuccess = useSelector(success);
+  const dispatch = useDispatch();
+  const constructorItem = useSelector((state) => state.burgerConstructor);
+  const orderNumber = useSelector((state) => state.order.orderNumber);
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const orderSuccess = useSelector((state) => state.order.success);
   const navigate = useNavigate();
-  const user = useSelector((store: RootState) => store.user.isLoggedIn);
+  const user = useSelector((store) => store.user.isLoggedIn);
 
   const [, dropTarget] = useDrop({
     accept: 'items',
@@ -143,7 +137,7 @@ function BurgerConstructor() {
       </div>
       {orderDetails.visible && orderSuccess && (
         <Modal onClose={closeModal} title="">
-          <OrderDetails orderNumber={orderNumber} />
+          <OrderDetails orderNumber = {orderNumber} />
         </Modal>)
       }
     </div>

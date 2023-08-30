@@ -3,10 +3,17 @@ import { POST_ORDER_ERROR, POST_ORDER_REQUEST, POST_ORDER_SUCCESS, ADD_CURRENT_O
 
 
 import { actionCreators } from "../actions/order";
-import { TActionFromCreators } from "../../utils/types/types";
+import { TActionFromCreators, TCurrentOrder } from "../../utils/types/types";
 
+interface IPostOrderInitialState {
+  orderNumber: number;
+  orderRequest: boolean;
+  orderFailed: boolean;
+  success: boolean
+}
 
-const postOrderInitialState = {
+const postOrderInitialState: IPostOrderInitialState = {
+  orderNumber: 0,
   orderRequest: false,
   orderFailed: false,
   success: false
@@ -24,7 +31,7 @@ export const postOrderReducer = (state = postOrderInitialState, action: TActionF
       
       return {
         ...state,
-        order: action.data.order.number,
+        orderNumber: action.data.order.number,
         orderRequest: false,
         success: true
       };
@@ -47,7 +54,7 @@ export const postOrderReducer = (state = postOrderInitialState, action: TActionF
 
 
 const initialState = {
-  currentOrder: ""
+  currentOrder: "",
 };
 
 export const currentOrderReducer = (state = initialState, action: any) => {

@@ -2,68 +2,71 @@ import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientsStyle from "./burger-ingredients.module.css";
 import IngredientBurger from "../ingredient-burger/ingredient-burger";
-import { useSelector } from "react-redux";
-import { RootState } from "../../services/store";
+import { useInView } from "react-intersection-observer";
+import { useMemo, useRef, useState, useEffect } from "react";
+import { useSelector } from "../../utils/hooks";
 import { TItem } from "../../utils/types/types";
 
-const items = (state: RootState) => state.ingredients;
-
 function BurgerIngredients() {
-  const { ingredients } = useSelector(items);
-  const [current, setCurrent] = React.useState("buns");
-  const tabRefBun = React.useRef(null);
-  const tabRefSauce: any = React.useRef(null);
-  const tabRefMain: any = React.useRef(null);
+  const { ingredients } = useSelector((state) => state.ingredients);
+  const [current, setCurrent] = useState("buns");
+  const tabRefBun = useRef(null);
+  const tabRefSauce = useRef(null);
+  const tabRefMain = useRef(null);
+  const { ref: bunsRefVisible, inView: bunsVisible } = useInView();
+  const { ref: saucesRefVisible, inView: saucesVisible } = useInView();
+  const { ref: mainsRefVisible, inView: mainsVisible } = useInView();
 
-  function executeScroll(selectTab: any) {
-    setCurrent(selectTab);
-    const item = document.getElementById(selectTab);
-    if (item) {
-      return item.scrollIntoView({ behavior: "smooth" });
+  const bun = useMemo(() => ingredients.filter((item: TItem) => item.type === 'bun'), [ingredients]);
+  const sauce = useMemo(() => ingredients.filter((item: TItem) => item.type === 'sauce'), [ingredients]);
+  const main = useMemo(() => ingredients.filter((item: TItem) => item.type === 'main'), [ingredients]);
+
+  const handleTabClick = (value: string, ref: any | null) => {
+    ref.current.scrollIntoView({ behavior: "smooth" });
+    setCurrent(value);
+  };
+
+  const handleScroll = () => {
+    if (bunsVisible) {
+      setCurrent("buns");
+    } else if (saucesVisible) {
+      setCurrent("sauces");
+    } else if (mainsVisible) {
+      setCurrent("mains");
     }
   };
 
-  const bun = React.useMemo(() => ingredients.filter((item: TItem) => item.type === 'bun'), [ingredients]);
-  const sauce = React.useMemo(() => ingredients.filter((item: TItem) => item.type === 'sauce'), [ingredients]);
-  const main = React.useMemo(() => ingredients.filter((item: TItem) => item.type === 'main'), [ingredients]);
-
-  const handleScroll = (val: any) => {
-    if (val.target.scrollTop < tabRefSauce.current.offsetTop) {
-      setCurrent("buns")
-    } else if (val.target.scrollTop < tabRefMain.current.offsetTop) {
-      setCurrent("sauces")
-    } else {
-      setCurrent("mains")
-    }
-  };
+  useEffect(() => {
+    handleScroll();
+  }, [bunsVisible, saucesVisible, mainsVisible]);
 
   return (
     <section className={burgerIngredientsStyle.section}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div className={burgerIngredientsStyle.menu}>
-        <Tab value="buns" active={current === "buns"} onClick={executeScroll}>
+        <Tab value="buns" active={current === "buns"} onClick={(value) => handleTabClick(value, tabRefBun)}>
           Булки
         </Tab>
-        <Tab value="sauces" active={current === "sauces"} onClick={executeScroll}>
+        <Tab value="sauces" active={current === "sauces"} onClick={(value) => handleTabClick(value, tabRefSauce)}>
           Соусы
         </Tab>
-        <Tab value="mains" active={current === "mains"} onClick={executeScroll}>
+        <Tab value="mains" active={current === "mains"} onClick={(value) => handleTabClick(value, tabRefMain)}>
           Начинки
         </Tab>
       </div>
-      <li className={burgerIngredientsStyle.container} onScroll={handleScroll}>
+      <li className={burgerIngredientsStyle.container}>
         <h2 className="text text_type_main-medium" id="buns" ref={tabRefBun}>Булки</h2>
-        <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
+        <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`} ref={bunsRefVisible}>
           {bun.map((item: TItem) => (
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
         <h2 className="text text_type_main-medium" id="sauces" ref={tabRefSauce}>Соусы</h2>
-        <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
+        <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`} ref={saucesRefVisible}>
           {sauce.map((item: TItem) => (
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
         <h2 className="text text_type_main-medium" id="mains" ref={tabRefMain}>Начинки</h2>
-        <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`}>
+        <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`} ref={mainsRefVisible}>
           {main.map((item: TItem) => (
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>

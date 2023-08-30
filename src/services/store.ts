@@ -6,6 +6,9 @@ import { socketMiddleware } from "./middleware/socketMiddleware";
 import { wsActions } from "./actions/ws-actions-orders";
 import { wsProfileActions } from "./actions/ws-actions-profile-orders";
 import { baseUrl } from "../utils/constatnts";
+import { Action, ActionCreator } from "redux";
+import { ThunkAction } from "redux-thunk";
+
 
 const wsUrl = baseUrl + "/orders/all";
 const wsProfileUrl = baseUrl + "/orders";
@@ -26,5 +29,9 @@ const initStore = createStore(
 
 export type AppDispatch = typeof initStore.dispatch;
 export type RootState = ReturnType<typeof initStore.getState>;
+export type AppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, any>
+>;
+
 
 export default initStore;

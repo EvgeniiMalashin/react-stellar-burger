@@ -1,17 +1,25 @@
+
+import { TActionFromCreators, TWsOrders } from "../../utils/types/types";
 import {
     WS_PROFILE_CONNECTION_SUCCESS,
     WS_PROFILE_CONNECTION_ERROR,
     WS_PROFILE_CONNECTION_CLOSED,
     WS_PROFILE_GET_ORDERS,
+    actionCreator,
   } from "../actions/ws-actions-profile-orders";
+
+  
+  type TStore = {
+    wsConnected: boolean,
+    profileOrders?: any,
+    error?: string    
+  }
   
   const initialState = {
     wsConnected: false,
-    profileOrders: null,
-    error: undefined,
   };
   
-  export const wsProfileReducer = (state = initialState, action: any) => {
+  export const wsProfileReducer = (state: TStore = initialState, action: any) => {
     switch (action.type) {
       case WS_PROFILE_CONNECTION_SUCCESS:
         return {

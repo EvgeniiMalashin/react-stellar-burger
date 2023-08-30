@@ -1,4 +1,4 @@
-const API = "https://norma.nomoreparties.space/api";
+import { API } from "./constatnts";
 
 export function request(endPoint: string, options: object) {
   const url = API + endPoint;

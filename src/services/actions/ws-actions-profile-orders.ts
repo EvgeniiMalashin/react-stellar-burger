@@ -32,9 +32,10 @@ export const wsProfileConnectionInit = () => {
 	};
   };
 
-  export const wsProfileConnectionError = () => {
+  export const wsProfileConnectionError = (error: string) => {
 	return {
 	  type: WS_PROFILE_CONNECTION_ERROR,
+	  payload: error
 	};
   };
 
@@ -51,3 +52,12 @@ export const wsProfileConnectionInit = () => {
 	  payload: data,
 	};
   };
+
+  export const actionCreator = {
+    wsProfileConnectionInit,
+	wsProfileConnectionOpen,
+	wsProfileConnectionClose,
+	wsProfileConnectionError,
+	wsProfileGetOrders,
+	wsProfileSendData
+  }

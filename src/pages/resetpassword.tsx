@@ -1,23 +1,23 @@
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import resetpasswordStyles from "./resetpassword.module.css";
 import { newPassword } from "../services/actions/password";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../services/store";
+import { useSelector, useDispatch } from "../utils/hooks";
 
-const ResetPassword = () => {
+
+const ResetPassword: React.FC = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
-  const email = useSelector((state: RootState) => state.password.email);
+  const email = useSelector((state) => state.password.email);
   const navigate = useNavigate();
-  const dispatch: AppDispatch = useDispatch();
-  const resetPassHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const dispatch = useDispatch();
+  
+  const resetPassHandler = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(newPassword(password, token));
   };
-  const onClickLogin = () => {
+  const onClickLogin: React.MouseEventHandler = () => {
     navigate('/login', { replace: true });
   };
 

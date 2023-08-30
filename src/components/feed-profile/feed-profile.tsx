@@ -1,15 +1,16 @@
 import feedProfileStyles from "./feed-profile.module.css";
 import FeedItem from "../feed-item/feed-item";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../utils/hooks";
 import { useEffect, useState } from "react";
 import { wsProfileConnectionInit, wsProfileConnectionClose } from "../../services/actions/ws-actions-profile-orders";
-import { RootState } from "../../services/store";
 import { TOrder } from "../../utils/types/types";
 
 const FeedProfile = () => {
   const dispatch = useDispatch();
-  const orders = useSelector((store: RootState) => store.profileOrders.profileOrders);
+  const orders = useSelector((store) => store.profileOrders.profileOrders);
   const [ordersReverse, setOrdersReverse] = useState<TOrder[]>([]);
+
+  
   useEffect(() => {
     if (orders) {
       const reverse = orders.orders.reverse();
