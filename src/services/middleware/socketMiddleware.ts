@@ -1,5 +1,5 @@
-import { accessToken } from "../../utils/constatnts";
 import { Middleware, MiddlewareAPI } from "redux";
+import { RootState } from "../store";
 
 type TWsMiddlewareActions = {
   wsInit: string;
@@ -11,7 +11,7 @@ type TWsMiddlewareActions = {
 };
 
 export const socketMiddleware = (wsUrl: string, wsActions: TWsMiddlewareActions, isAuth: boolean): Middleware => {
-  return (store: MiddlewareAPI) => {
+  return (store: MiddlewareAPI<any, RootState>) => {
     let socket: WebSocket | null = null;
 
     return (next) => (action) => {
@@ -20,7 +20,8 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsMiddlewareActions,
       const { wsInit, onError, onOpen, onClose, onMessage, wsSendData } =
         wsActions;
 
-      
+        const accessToken: string | null =
+        window.localStorage.getItem("accessToken");
 
       if (type === wsInit && isAuth) {
         socket = new WebSocket(

@@ -4,9 +4,6 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import modalStyle from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
-import { removeCurrentOrder } from "../../services/actions/order";
-import { useDispatch } from "../../utils/hooks";
-
 type TModal = {
   children: React.ReactNode;
   onClose: () => void;
@@ -14,7 +11,7 @@ type TModal = {
 };
 
 function Modal({ children, onClose, title }: TModal) {
-  const dispatch = useDispatch();
+
   const reactModals = document.getElementById("react-modals") as HTMLDivElement;
   React.useEffect(() => {
     function closeEsc(e: KeyboardEvent) {
@@ -23,10 +20,10 @@ function Modal({ children, onClose, title }: TModal) {
       }
     }
     document.addEventListener('keydown', closeEsc);
-    dispatch(removeCurrentOrder());
+
     return () => {
       document.removeEventListener('keydown', closeEsc);
-      dispatch(removeCurrentOrder());
+
     }
   });
 
@@ -46,7 +43,5 @@ function Modal({ children, onClose, title }: TModal) {
     reactModals
   );
 }
-
-
 
 export default Modal;

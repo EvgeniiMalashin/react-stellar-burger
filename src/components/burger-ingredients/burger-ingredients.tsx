@@ -1,4 +1,3 @@
-import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientsStyle from "./burger-ingredients.module.css";
 import IngredientBurger from "../ingredient-burger/ingredient-burger";
@@ -57,17 +56,17 @@ function BurgerIngredients() {
       <li className={burgerIngredientsStyle.container}>
         <h2 className="text text_type_main-medium" id="buns" ref={tabRefBun}>Булки</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`} ref={bunsRefVisible}>
-          {bun.map((item: TItem) => (
+          {bun.map((item) => (
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
         <h2 className="text text_type_main-medium" id="sauces" ref={tabRefSauce}>Соусы</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`} ref={saucesRefVisible}>
-          {sauce.map((item: TItem) => (
+          {sauce.map((item) => (
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
         <h2 className="text text_type_main-medium" id="mains" ref={tabRefMain}>Начинки</h2>
         <ul className={`${burgerIngredientsStyle.list} pt-6 pr-4 pl-4`} ref={mainsRefVisible}>
-          {main.map((item: TItem) => (
+          {main.map((item) => (
             <IngredientBurger ingredient={item} key={item._id} />))}
         </ul>
       </li>

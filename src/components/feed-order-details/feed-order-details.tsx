@@ -2,7 +2,6 @@ import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burge
 import { useSelector, useDispatch } from "../../utils/hooks";
 import feedOrderDetailsStyles from "./feed-order-details.module.css";
 import { useParams, useMatch } from "react-router-dom";
-import { v4 as uuidv4} from "uuid"
 import { useEffect } from "react";
 import { wsConnectionInit } from "../../services/actions/ws-actions-orders";
 import { useState } from "react";
@@ -20,7 +19,7 @@ const FeedOrderDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [sortedIngredients, setSortedIngredients] = useState<null | any[]>(null);
   const [order, setOrder] = useState<undefined | TOrder>(undefined);
-  const [orderPrice, setOrderPrise] = useState(null);
+  const [orderPrice, setOrderPrise] = useState(Number);
   const feedPath = useMatch("/feed/:id");
   const profilePath = useMatch("/profile/orders/:id");
 
@@ -28,7 +27,7 @@ const FeedOrderDetails = () => {
     if (orders) {
       const orderFind = orders.orders.find((i) => i._id === id);
       const order = orderCurrent ? orderCurrent : orderFind;
-      const findIngredient = order.ingredients.map(
+      const findIngredient = order!.ingredients.map(
         (id: string) => ingredients.filter((item: TItem) => item._id === id)[0]
       );
       const orderPrice = findIngredient
@@ -83,8 +82,8 @@ const FeedOrderDetails = () => {
       </p>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <div className={feedOrderDetailsStyles.ingredients}>
-        {sortedIngredients!.map((ingredient) => (
-          <div className={feedOrderDetailsStyles.ingredient} key={uuidv4()}>
+        {sortedIngredients!.map((ingredient, index) => (
+          <div className={feedOrderDetailsStyles.ingredient} key={index}>
             <div className={feedOrderDetailsStyles.ingredientName}>
               <div className={feedOrderDetailsStyles.box}>
                 <img
@@ -101,7 +100,7 @@ const FeedOrderDetails = () => {
               <p className="text text_type_digits-default mr-3">
                 {`${ingredient.count} x ${ingredient.item.price}`}
               </p>
-              <CurrencyIcon type="primary"/>
+              <CurrencyIcon type="primary" />
             </div>
           </div>
         ))}
@@ -112,7 +111,7 @@ const FeedOrderDetails = () => {
         </p>
         <div className={feedOrderDetailsStyles.quantity}>
           <p className="text text_type_digits-default mr-2">{orderPrice}</p>
-          <CurrencyIcon type="primary"/>
+          <CurrencyIcon type="primary" />
         </div>
       </div>
     </div>

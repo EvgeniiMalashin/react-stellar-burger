@@ -21,3 +21,27 @@
     0px 0px 8px rgba(51, 51, 255, 0.25),
     0px 4px 32px rgba(51, 51, 255, 0.5);
 }
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  border: 8px solid var(--white-txt); 
+  border-top: 8px solid var(--text-shadow); 
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

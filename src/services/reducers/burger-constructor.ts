@@ -4,10 +4,10 @@ import { TItem } from "../../utils/types/types";
 import { actionCreators } from "../actions/burger-constructor";
 import { TActionFromCreators } from "../../utils/types/types";
 
-export const burgerConstructorReducer = (state = [], action: TActionFromCreators<typeof actionCreators>) => {
+export const burgerConstructorReducer = (state: TItem[] = [], action: TActionFromCreators<typeof actionCreators>) => {
   switch (action.type) {
     case ADD_ITEM:
-      let bun: any = state.find((x: TItem, idx) => x.type === 'bun');
+      let bun = state.find((x: TItem, idx) => x.type === 'bun');
       if (action.payload.type === 'bun' && bun) {
         if (action.payload._id !== bun._id) {
           return [...state.filter((x: TItem) => x.type !== 'bun'), action.payload]
@@ -20,7 +20,7 @@ export const burgerConstructorReducer = (state = [], action: TActionFromCreators
     case DELETE_ALL_ITEMS:
       return [];
     case MOVE_ITEMS:
-      return action.payload;
+      return state;
     default: {
       return state;
     }

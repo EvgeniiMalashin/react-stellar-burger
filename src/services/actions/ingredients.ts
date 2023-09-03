@@ -12,8 +12,8 @@ export const getIngredientRequest = () => {
 
 export const getIngredientSuccess = (ingredients: TItem[]) => {
     return {
-        type: GET_INGREDIENT_SUCCESS,
-        ingredients
+        type: GET_INGREDIENT_SUCCESS, ingredients
+        
     }
 }
 

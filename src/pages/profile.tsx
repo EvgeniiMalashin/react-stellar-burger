@@ -10,7 +10,7 @@ interface IProfile {
   pass: boolean
 }
 
-const Profile = ( {pass}: IProfile ) => {
+const Profile = ({ pass }: IProfile) => {
   const profileLink = useMatch("/profile");
   const profileOrdersLink = useMatch("/profile/orders");
   const [activeButton, setActiveButton] = useState<boolean | string>();
@@ -22,12 +22,12 @@ const Profile = ( {pass}: IProfile ) => {
   const token = useSelector((store) => store.user.refreshToken);
   const userName = useSelector((store) => store.user.name);
   const userEmail = useSelector((store) => store.user.email);
-  
+
 
   useEffect(() => {
     dispatch(getUser(token));
-    setName(userName);
-    setEmail(userEmail);
+    setName(userName!);
+    setEmail(userEmail!);
     setPassword("******");
   }, []);
 
@@ -43,8 +43,8 @@ const Profile = ( {pass}: IProfile ) => {
   };
 
   const handleCancel = () => {
-    setName(userName);
-    setEmail(userEmail);
+    setName(userName!);
+    setEmail(userEmail!);
     setActiveButton(false);
   };
 

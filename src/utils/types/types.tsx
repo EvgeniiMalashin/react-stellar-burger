@@ -50,4 +50,4 @@ export type TWsOrders = {
 };
 
 type TActionCreator = (...args: any) => Action<string>;
-export type TActionFromCreators<T extends {[key in keyof T]: TActionCreator}> = ReturnType<T[keyof T]>
+export type TActionFromCreators<T extends {[key in keyof T]: TActionCreator}> = ReturnType<T[keyof T]>;

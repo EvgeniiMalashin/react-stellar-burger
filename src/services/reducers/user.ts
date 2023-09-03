@@ -1,3 +1,4 @@
+import { TActionFromCreators } from "../../utils/types/types";
 import {
   NEW_USER_REQUEST,
   NEW_USER_SUCCESS,
@@ -16,7 +17,8 @@ import {
   PATCH_USER_INFO_ERROR,
   GET_USER_INFO_REQUEST,
   GET_USER_INFO_SUCCESS,
-  GET_USER_INFO_ERROR
+  GET_USER_INFO_ERROR,
+  actionCreators
 } from "../actions/user";
 
 interface IUserState {
@@ -41,7 +43,7 @@ const initialState: IUserState = {
   isLoggedIn: false,
 };
 
-export const userReducer = (state = initialState, action: any) => {
+export const userReducer = (state = initialState, action: TActionFromCreators<typeof actionCreators>) => {
   switch (action.type) {
     case NEW_USER_SUCCESS:
       return {

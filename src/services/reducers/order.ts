@@ -4,7 +4,7 @@ import { POST_ORDER_ERROR, POST_ORDER_REQUEST, POST_ORDER_SUCCESS, ADD_CURRENT_O
 
 import { actionCreators } from "../actions/order";
 import { TActionFromCreators } from "../../utils/types/types";
-
+import { TOrder } from "../../utils/types/types";
 interface IPostOrderInitialState {
   orderNumber: number;
   orderRequest: boolean;
@@ -52,17 +52,20 @@ export const postOrderReducer = (state = postOrderInitialState, action: TActionF
   }
 };
 
+interface ICurrentState {
+  currentOrder: TOrder | null;
+}
 
-const initialState = {
-  currentOrder: "",
+const initialState: ICurrentState = {
+  currentOrder: null,
 };
 
-export const currentOrderReducer = (state = initialState, action: any) => {
+export const currentOrderReducer = (state = initialState, action: TActionFromCreators<typeof actionCreators>) => {
   switch (action.type) {
     case ADD_CURRENT_ORDER:
       return { ...state, currentOrder: action.item };
     case REMOVE_CURRENT_ORDER:
-      return { ...state, currentOrder: "" };
+      return { ...state, currentOrder: null};
     default:
       return state;
   }

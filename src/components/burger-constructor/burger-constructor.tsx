@@ -12,15 +12,13 @@ import { CLOSE_ORDER } from "../../services/actions/popup";
 import burgerConstructorStyle from "./burger-constructor.module.css";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { accessToken } from "../../utils/constatnts";
 import { TItem } from "../../utils/types/types";
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const constructorItem = useSelector((state) => state.burgerConstructor);
-  const orderNumber = useSelector((state) => state.order.orderNumber);
   const orderDetails = useSelector((state) => state.orderDetails);
-  const orderSuccess = useSelector((state) => state.order.success);
+  
   const navigate = useNavigate();
   const user = useSelector((store) => store.user.isLoggedIn);
 
@@ -54,7 +52,7 @@ function BurgerConstructor() {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
-      Authorization: accessToken,
+      Authorization: window.localStorage.getItem("accessToken"),
     },
     body: JSON.stringify({ ingredients: constructorItem.map((x: TItem) => x._id) })
   };
@@ -62,6 +60,7 @@ function BurgerConstructor() {
   const createOrder = () => {
     if (user) {
       dispatch(postOrder(requestOptions));
+
     } else {
       navigate('/login');
     }
@@ -88,6 +87,8 @@ function BurgerConstructor() {
     () => constructorItem.some((item: TItem) => item.type === 'bun'),
     [constructorItem]
   );
+
+
 
   return (
     <div className={burgerConstructorStyle.container} ref={dropTarget}>
@@ -135,9 +136,9 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
       </div>
-      {orderDetails.visible && orderSuccess && (
+      {orderDetails.visible && (
         <Modal onClose={closeModal} title="">
-          <OrderDetails orderNumber = {orderNumber} />
+          <OrderDetails />
         </Modal>)
       }
     </div>

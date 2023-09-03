@@ -1,6 +1,6 @@
 import { newUserReg, login, tokenRefresh, logout, userGetInfo, userPatchInfo } from "../../utils/useUser";
 import { setCookie } from "../../utils/cookie";
-import { AppDispatch, AppThunk } from "../store";
+import { AppThunk } from "../store";
 
 export const NEW_USER_REQUEST: 'NEW_USER_REQUEST' = 'NEW_USER_REQUEST';
 export const NEW_USER_SUCCESS: 'NEW_USER_SUCCESS' = 'NEW_USER_SUCCESS';
@@ -27,7 +27,7 @@ export const PATCH_USER_INFO_SUCCESS: 'PATCH_USER_INFO_SUCCESS' = 'PATCH_USER_IN
 export const PATCH_USER_INFO_ERROR: 'PATCH_USER_INFO_ERROR' = 'PATCH_USER_INFO_ERROR';
 
 export const newUser: AppThunk = (email: string, password: string, name: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({
       type: NEW_USER_REQUEST,
       email: email,
@@ -54,7 +54,7 @@ export const newUser: AppThunk = (email: string, password: string, name: string)
 };
 
 export const userLogin: AppThunk = (email: string, password: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({
       type: LOGIN_REQUEST,
       email: email,
@@ -82,7 +82,7 @@ export const userLogin: AppThunk = (email: string, password: string) => {
 };
 
 export const refreshToken: AppThunk = () => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({
       type: TOKEN_REQUEST,
     });
@@ -106,7 +106,7 @@ export const refreshToken: AppThunk = () => {
 };
 
 export const userLogout: AppThunk = (token: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({
       type: LOGOUT_REQUEST,
       token: token,
@@ -130,7 +130,7 @@ export const userLogout: AppThunk = (token: string) => {
 };
 
 export const getUser: AppThunk = (token: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({
       type: GET_USER_INFO_REQUEST,
       token: token,
@@ -148,7 +148,7 @@ export const getUser: AppThunk = (token: string) => {
 };
 
 export const patchUser: AppThunk = (email: string, name: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({
       type: PATCH_USER_INFO_REQUEST,
       email: email,
@@ -165,3 +165,123 @@ export const patchUser: AppThunk = (email: string, name: string) => {
       .catch(() => dispatch({ type: PATCH_USER_INFO_ERROR }));
   };
 };
+
+export const newUserRequest = (email: string, name: string) => {
+  return {
+      type: NEW_USER_REQUEST, email, name
+  }
+}
+
+export const newUserSuccess = () => {
+  return {
+      type: NEW_USER_SUCCESS,
+  }
+}
+
+export const newUserError = () => {
+  return {
+      type: NEW_USER_ERROR,
+  }
+}
+
+export const loginRequest = () => {
+  return {
+      type: LOGIN_REQUEST,
+  }
+}
+export const loginSuccess = (email: string, name: string, accessToken: string, refreshToken: string) => {
+  return {
+      type: LOGIN_SUCCESS,
+      email, name, accessToken, refreshToken
+  }
+}
+export const loginError = () => {
+  return {
+      type: LOGIN_ERROR,
+  }
+}
+
+export const tokenRequest = () => {
+  return {
+      type: TOKEN_REQUEST,
+  }
+}
+export const tokenSuccess = (accessToken: string, refreshToken: string) => {
+  return {
+      type: TOKEN_SUCCESS, accessToken, refreshToken
+  }
+}
+export const tokenError = () => {
+  return {
+      type: TOKEN_ERROR,
+  }
+}
+
+export const logoutRequest = (token: string) => {
+  return {
+      type: LOGOUT_REQUEST, token
+  }
+}
+export const logoutSuccess = () => {
+  return {
+      type: LOGOUT_SUCCESS,
+  }
+}
+export const logoutError = () => {
+  return {
+      type: LOGOUT_ERROR,
+  }
+}
+
+export const getUserInfoRequest = () => {
+  return {
+      type: GET_USER_INFO_REQUEST,
+  }
+}
+export const getUserInfoSuccess = (email: string, name: string) => {
+  return {
+      type: GET_USER_INFO_SUCCESS,email,name
+  }
+}
+export const getUserInfoError = () => {
+  return {
+      type: GET_USER_INFO_ERROR,
+  }
+}
+
+export const patchUserInfoRequest = (email: string, name: string) => {
+  return {
+      type: PATCH_USER_INFO_REQUEST,email,name
+  }
+}
+export const patchUserInfoSuccess = (email: string, name: string) => {
+  return {
+      type: PATCH_USER_INFO_SUCCESS,email,name
+  }
+}
+export const patchUserInfoError = () => {
+  return {
+      type: PATCH_USER_INFO_ERROR,
+  }
+}
+
+export const actionCreators = {
+  loginRequest,
+  loginSuccess,
+  loginError,
+  logoutRequest,
+  logoutSuccess,
+  logoutError,
+  tokenRequest,
+  tokenSuccess,
+  tokenError,
+  newUserRequest,
+  newUserSuccess,
+  newUserError,
+  getUserInfoRequest,
+  getUserInfoSuccess,
+  getUserInfoError,
+  patchUserInfoRequest,
+  patchUserInfoSuccess,
+  patchUserInfoError
+}
