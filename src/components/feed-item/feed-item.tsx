@@ -1,12 +1,12 @@
 import feedItemStyles from "./feed-item.module.css";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "../../utils/hooks";
 import { addCurrentOrder } from "../../services/actions/order";
-import { v4 as uuidv4 } from "uuid";
 import { TItem, TOrder, TOrderItem } from "../../utils/types/types";
 
 const FeedItem: React.FC<TOrderItem> = ({ order, path }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const orderIngredients = order.ingredients;
@@ -20,7 +20,7 @@ const FeedItem: React.FC<TOrderItem> = ({ order, path }) => {
         className={feedItemStyles.link}
         to={{ pathname: path }}
         onClick={() => clickHandler(order)}
-        state={{ background: true }}
+        state={{ background: location }}
       >
         <div className={feedItemStyles.item__info}>
           <p className="text text_type_digits-default">#{order.number}</p>
@@ -49,7 +49,7 @@ const FeedItem: React.FC<TOrderItem> = ({ order, path }) => {
               .filter((el) => el !== undefined)
               .map((item, index) =>
                 index < 6 ? (
-                  <div className={feedItemStyles.imageContainer} key={uuidv4()}>
+                  <div className={feedItemStyles.imageContainer} key={index}>
                     <img
                       src={item.image}
                       className={feedItemStyles.itemImg}

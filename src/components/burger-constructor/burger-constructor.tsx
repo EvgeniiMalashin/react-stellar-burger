@@ -65,10 +65,12 @@ function BurgerConstructor() {
       navigate('/login');
     }
   };
-
+  
   const moveItem = useCallback((dragIndex, hoverIndex) => {
-    const bunsIngredients = constructorItem.filter((item: TItem) => item.type === 'bun')
-    const otherIngredients = constructorItem.filter((item: TItem) => item.type !== 'bun')
+    
+    const bunsIngredients = constructorItem.filter(item => item.type === 'bun')
+    const otherIngredients = constructorItem.filter(item => item.type !== 'bun')
+  
     const sortedIngredients = update(otherIngredients, {
       $splice:
         [
@@ -77,6 +79,7 @@ function BurgerConstructor() {
         ],
     })
     const sortedItemsWithBuns = [...bunsIngredients, ...sortedIngredients]
+    
     dispatch({
       type: MOVE_ITEMS,
       payload: [...sortedItemsWithBuns]
@@ -84,7 +87,7 @@ function BurgerConstructor() {
   }, [constructorItem, dispatch]);
 
   const hasBun = useMemo(
-    () => constructorItem.some((item: TItem) => item.type === 'bun'),
+    () => constructorItem.some(item => item.type === 'bun'),
     [constructorItem]
   );
 

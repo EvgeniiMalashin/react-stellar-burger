@@ -29,7 +29,7 @@ const IngredientBurger = ({ ingredient }: IIngredientBurger) => {
       <Link
         className={ingredientBurgerStyle.link}
         to={{ pathname: `/ingredients/${ingredient._id}` }}
-        state={{ background: true }}
+        state={{ background: '/' }}
       >
         <Counter count={counter} size="default" extraClass="m-1" />
         <img src={ingredient.image} alt={ingredient.name} />

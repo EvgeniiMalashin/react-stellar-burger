@@ -27,32 +27,33 @@ function MovementElement  ({ ingredient, index, moveItem, id }: TConstructorItem
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: any, monitor: DropTargetMonitor) {
+    hover: (item: TItem, monitor: DropTargetMonitor) => {
       if (!ref.current) {
-        return;
+        return
       }
       const dragIndex = item.index
       const hoverIndex = index
 
       if (dragIndex === hoverIndex) {
-        return;
+        return
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect()
 
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      
+      const clientOffset = monitor.getClientOffset()
 
-      const hoverClientY = Number(monitor.getClientOffset()) - hoverBoundingRect.top;
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top
 
       if (dragIndex! < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
+        return 
       }
       if (dragIndex! > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
+        return
       }
       moveItem(dragIndex! - 1, hoverIndex - 1)
       item.index = hoverIndex
+      console.log(hoverIndex)
     },
   });
 
@@ -68,7 +69,7 @@ function MovementElement  ({ ingredient, index, moveItem, id }: TConstructorItem
   drag(drop(ref));
 
   return (
-    <div
+    <div key={ingredient._id}
       className={movementElementStyle.main} ref={ref} style={{ opacity: Number(!isDragging) }} data-handler-id={handlerId}>
       <ConstructorElement 
         text={name}

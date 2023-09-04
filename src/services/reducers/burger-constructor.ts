@@ -20,7 +20,7 @@ export const burgerConstructorReducer = (state: TItem[] = [], action: TActionFro
     case DELETE_ALL_ITEMS:
       return [];
     case MOVE_ITEMS:
-      return state;
+      return [...action.payload];
     default: {
       return state;
     }

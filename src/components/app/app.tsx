@@ -17,10 +17,10 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const background = location.state && location.state.background;
+  const background = location.state?.background;
   let token = localStorage.getItem("refreshToken");
   const cookie = getCookie("token");
-
+  
   
   useEffect(() => {
     dispatch(getIngredients());
@@ -53,14 +53,14 @@ function App() {
         <Route path="/forgot-password" element={<ProtectedRoute pass={false} component={<ForgotPassword />} />} />
         <Route path="/reset-password" element={<ProtectedRoute pass={false} component={<ResetPassword />} />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
-        <Route path="/orders-feed" element={<OrdersFeed />} />
+        <Route path="/feed" element={<OrdersFeed />} />
         <Route path="/feed/:id" element={<FeedOrder />} />
         <Route path="/profile/orders/:id" element={<FeedOrder />} />
       </Routes>
-      {background && (
+      {!!background && (
         <Routes>
           <Route path="/ingredients/:id" element={<Modal onClose={closeModal} title="Детали ингредиента"><IngredientDetails /></Modal>} />
-          <Route path="/feed/:id" element={<Modal onClose={closeModal} title="" ><FeedOrderDetails /></Modal>} />
+          <Route path="/feed/:id" element={<Modal onClose={closeModal} title="" ><FeedOrderDetails /></Modal>} /> 
           <Route path="/profile/orders/:id" element={<Modal onClose={closeModal} title=""><FeedOrderDetails /></Modal>} />
         </Routes>
       )}

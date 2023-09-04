@@ -26,9 +26,10 @@ export const deleteAllItems = () => {
     }
 }
 
-export const moveItems = () => {
+export const moveItems = (payload: TItem[]) => {
     return {
         type: MOVE_ITEMS,
+        payload
     }
 }
 
