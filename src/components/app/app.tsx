@@ -61,7 +61,7 @@ function App() {
         <Routes>
           <Route path="/ingredients/:id" element={<Modal onClose={closeModal} title="Детали ингредиента"><IngredientDetails /></Modal>} />
           <Route path="/feed/:id" element={<Modal onClose={closeModal} title="" ><FeedOrderDetails /></Modal>} /> 
-          <Route path="/profile/orders/:id" element={<Modal onClose={closeModal} title=""><FeedOrderDetails /></Modal>} />
+          <Route path="/profile/orders/:id" element={<ProtectedRoute pass={true} component={<Modal onClose={closeModal} title=""><FeedOrderDetails /></Modal>}/>} />
         </Routes>
       )}
     </div>
