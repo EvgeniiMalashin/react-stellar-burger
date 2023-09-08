@@ -2,14 +2,13 @@
     margin: auto;
 }
 
-.box {
-    width: 608px;
-}
 
 .columns {
+    margin: auto;
     width: 100%;
     display: flex;
     flex-direction: row;
     column-gap: 60px;
+    justify-content: center;
 
 }
